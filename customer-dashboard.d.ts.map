@@ -1,0 +1,1 @@
+{"version":3,"file":"customer-dashboard.d.ts","sourceRoot":"","sources":["src/customer-dashboard.ts"],"names":[],"mappings":"AAAA,OAAO,EAAO,UAAU,EAAC,MAAM,KAAK,CAAC;AAErC,OAAO,cAAc,CAAC;AACtB,OAAO,sBAAsB,CAAC;AAE9B,OAAO,oBAAoB,CAAC;AAC5B,OAAO,qBAAqB,CAAC;AAE7B,qBACa,gBAAiB,SAAQ,UAAU;IAErC,KAAK,SAAwB;cAEnB,MAAM;CAgB1B"}
