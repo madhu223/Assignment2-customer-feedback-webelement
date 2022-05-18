@@ -1,0 +1,1 @@
+{"version":3,"file":"feedback.js","sourceRoot":"","sources":["src/feedback.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,QAAQ;CAOpB","sourcesContent":["export class Feedback {\r\n  ProductRating!: number;\r\n  DeliveryRating!: number;\r\n  Size!: number;\r\n  ContactUs!: string;\r\n  Recommond!: string;\r\n  OtherFeedabck!: string;\r\n}\r\n"]}

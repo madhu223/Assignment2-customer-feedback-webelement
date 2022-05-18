@@ -13,7 +13,6 @@ import '@vaadin/horizontal-layout';
 import { Customer } from './customer';
 export declare class CustomerFeedback extends LitElement {
     customer: Customer;
-    private counter;
     static styles: import("lit").CSSResult;
     title: string;
     private responsiveSteps;

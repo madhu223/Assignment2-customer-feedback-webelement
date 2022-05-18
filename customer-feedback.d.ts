@@ -14,7 +14,9 @@ import '@vaadin/vertical-layout';
 import '@vaadin/list-box';
 import '@vaadin/select';
 import '@vaadin/text-area';
+import { Feedback } from './feedback';
 export declare class CustomerFeedback extends LitElement {
+    feedback: Feedback;
     static styles: import("lit").CSSResult;
     head: string;
     title: string;
@@ -23,5 +25,12 @@ export declare class CustomerFeedback extends LitElement {
     private charLimit;
     private text;
     protected render(): import("lit-html").TemplateResult<1>;
+    handleChange(e: {
+        target: {
+            name: any;
+            value: any;
+        };
+    }): void;
+    fbformsubmit(): void;
 }
 //# sourceMappingURL=customer-feedback.d.ts.map

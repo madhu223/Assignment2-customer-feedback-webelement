@@ -5,7 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { css, html, LitElement } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import './customer';
 // import '@vaadin/vaadin-text-field';
 // import '@vaadin/vaadin-button';
@@ -29,7 +29,6 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
     constructor() {
         super(...arguments);
         this.customer = new Customer();
-        this.counter = 0;
         this.title = 'Customer Details';
         this.responsiveSteps = [
             // Use one column by default
@@ -50,7 +49,7 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
           <vaadin-text-field
             label="FirstName"
             name="FirstName"
-            .value=${this.customer.FirstName}
+            value=${this.customer.FirstName}
             @change=${this.handleChange}
             required
             error-message="This field is required"
@@ -179,7 +178,8 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
     }
     formsubmit() {
         console.log(JSON.stringify(this.customer, null, 2));
-        console.log(typeof this.customer);
+        // console.log(typeof this.customer);
+        // this.customer = this.customer;
     }
     formcancel() {
         this.customer = {
@@ -194,6 +194,7 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
             Country: '',
             PostalCode: '',
         };
+        console.log(JSON.stringify(this.customer, null, 2));
     }
 };
 CustomerFeedback.styles = css `
@@ -210,9 +211,6 @@ CustomerFeedback.styles = css `
       margin: auto;
     }
   `;
-__decorate([
-    state()
-], CustomerFeedback.prototype, "counter", void 0);
 __decorate([
     property()
 ], CustomerFeedback.prototype, "title", void 0);

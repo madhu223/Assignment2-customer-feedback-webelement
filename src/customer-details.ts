@@ -1,5 +1,5 @@
 import {css, html, LitElement} from 'lit';
-import {customElement, property, state} from 'lit/decorators.js';
+import {customElement, property} from 'lit/decorators.js';
 import './customer';
 // import '@vaadin/vaadin-text-field';
 // import '@vaadin/vaadin-button';
@@ -25,8 +25,6 @@ import {Customer} from './customer';
 export class CustomerFeedback extends LitElement {
   customer: Customer = new Customer();
 
-  @state()
-  private counter = 0;
   static override styles = css`
     h2 {
       text-align: center;
@@ -62,7 +60,7 @@ export class CustomerFeedback extends LitElement {
           <vaadin-text-field
             label="FirstName"
             name="FirstName"
-            .value=${this.customer.FirstName}
+            value=${this.customer.FirstName}
             @change=${this.handleChange}
             required
             error-message="This field is required"
@@ -193,7 +191,8 @@ export class CustomerFeedback extends LitElement {
   }
   formsubmit() {
     console.log(JSON.stringify(this.customer, null, 2));
-    console.log(typeof this.customer);
+    // console.log(typeof this.customer);
+    // this.customer = this.customer;
   }
   formcancel() {
     this.customer = {
@@ -203,10 +202,12 @@ export class CustomerFeedback extends LitElement {
       email: '',
       dob: 0,
       Gender: '',
+
       City: '',
       State: '',
       Country: '',
       PostalCode: '',
     };
+    console.log(JSON.stringify(this.customer, null, 2));
   }
 }
