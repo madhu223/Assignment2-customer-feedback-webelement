@@ -168,7 +168,13 @@ export class CustomerFeedback extends LitElement {
             <vaadin-button theme="secondary">Cancel</vaadin-button>
           </vaadin-horizontal-layout>
         </vaadin-vertical-layout>
+
+        <vaadin-button theme="primary" @click="${this.getfbData}">
+          get data</vaadin-button
+        >
       </div>
+
+      >
     `;
   }
   handleChange(e: {target: {name: any; value: any}}) {
@@ -177,5 +183,15 @@ export class CustomerFeedback extends LitElement {
   }
   fbformsubmit() {
     console.log(JSON.stringify(this.feedback, null, 2));
+
+    localStorage.setItem(
+      'this.feedback',
+      JSON.stringify(this.feedback, null, 2)
+    );
+  }
+  getfbData() {
+    let myfbdata = JSON.parse(localStorage.getItem('this.feedback') || '{}');
+    console.log(myfbdata.ProductRating, typeof myfbdata);
+    console.log(myfbdata, typeof myfbdata);
   }
 }

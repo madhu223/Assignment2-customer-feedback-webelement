@@ -150,7 +150,7 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
         
     
         >
-          <vaadin-button theme="primary" 
+          <vaadin-button  theme="primary" 
           @click ="${this.formsubmit}"
           >Submit</vaadin-button>
           <vaadin-button theme="secondary"
@@ -163,7 +163,10 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
       </div>
 
      
-        
+      <vaadin-button theme="primary" 
+          @click ="${this.getData}"
+          >
+        get data</vaadin-button>
      
       
     `;
@@ -177,9 +180,22 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
         // console.log(`Last Name: ${this.customer.LastName}`);
     }
     formsubmit() {
+        // console.log(this.customer.FirstName);
         console.log(JSON.stringify(this.customer, null, 2));
         // console.log(typeof this.customer);
         // this.customer = this.customer;
+        localStorage.setItem('this.customer', JSON.stringify(this.customer, null, 2));
+    }
+    getData() {
+        // let data = {...this.customer};
+        // let myData = JSON.stringify(JSON.parse(localStorage.getItem('data')));
+        // console.log(data, myData, typeof data, typeof myData);
+        // console.log(
+        //   localStorage.getItem('this.customer'),
+        //   typeof localStorage.getItem('this.customer')
+        // );
+        let mydata = JSON.parse(localStorage.getItem('this.customer') || '{}');
+        console.log(mydata.FirstName, typeof mydata);
     }
     formcancel() {
         this.customer = {

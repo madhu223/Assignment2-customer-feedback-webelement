@@ -24,6 +24,7 @@ export declare class CustomerFeedback extends LitElement {
         };
     }): void;
     formsubmit(): void;
+    getData(): void;
     formcancel(): void;
 }
 //# sourceMappingURL=customer-details.d.ts.map

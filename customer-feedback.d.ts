@@ -32,5 +32,6 @@ export declare class CustomerFeedback extends LitElement {
         };
     }): void;
     fbformsubmit(): void;
+    getfbData(): void;
 }
 //# sourceMappingURL=customer-feedback.d.ts.map
