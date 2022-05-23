@@ -17,13 +17,11 @@ import '@vaadin/text-area';
 import { Feedback } from './feedback';
 export declare class CustomerFeedback extends LitElement {
     feedback: Feedback;
+    fbdata: {}[];
     static styles: import("lit").CSSResult;
     head: string;
     title: string;
-    employee: any;
     private items;
-    private charLimit;
-    private text;
     protected render(): import("lit-html").TemplateResult<1>;
     handleChange(e: {
         target: {

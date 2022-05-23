@@ -41,14 +41,21 @@
   "author": "Google LLC",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@ag-grid-community/client-side-row-model": "^27.3.0",
     "@vaadin/form-layout": "^23.0.10",
+    "@vaadin/router": "^1.7.4",
     "@vaadin/vaadin": "^23.0.9",
     "@vaadin/vaadin-button": "^23.0.10",
     "@vaadin/vaadin-checkbox": "^23.0.10",
     "@vaadin/vaadin-radio-button": "^23.0.10",
     "@vaadin/vaadin-text-field": "^23.0.10",
+    "ag-grid-community": "^27.3.0",
     "ag-grid-webcomponent": "^17.1.0",
-    "lit": "^2.1.0"
+    "lit": "^2.1.0",
+    "nanoid": "^3.3.4",
+    "pwa-helpers": "^0.9.1",
+    "redux": "^4.2.0",
+    "reselect": "^4.1.5"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",

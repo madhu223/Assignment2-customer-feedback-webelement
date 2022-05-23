@@ -17,13 +17,18 @@ import '@vaadin/radio-group';
 import '@vaadin/button';
 import '@vaadin/radio-group/src/vaadin-radio-button';
 import '@vaadin/form-layout';
+import '@vaadin/dialog';
 import {FormLayoutResponsiveStep} from '@vaadin/form-layout';
 import '@vaadin/horizontal-layout';
 import {Customer} from './customer';
 
 @customElement('customer-details')
-export class CustomerFeedback extends LitElement {
+export class CustomerDetails extends LitElement {
   customer: Customer = new Customer();
+  fomdata = [{}];
+  regex = /^[A-Za-z0-9\-]+$/;
+  emailRegex =
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   static override styles = css`
     h2 {
@@ -39,6 +44,7 @@ export class CustomerFeedback extends LitElement {
       margin: auto;
     }
   `;
+
   @property()
   override title = 'Customer Details';
   private responsiveSteps: FormLayoutResponsiveStep[] = [
@@ -47,10 +53,13 @@ export class CustomerFeedback extends LitElement {
     // Use two columns, if layout's width exceeds 500px
     {minWidth: '500px', columns: 2},
   ];
+  errors: any;
 
   protected override render() {
     return html`
         <h2>${this.title}</h2>
+
+        
       <div class="container" >
         <!-- <h2>Customer Feedback</h2> -->
 
@@ -64,10 +73,13 @@ export class CustomerFeedback extends LitElement {
             @change=${this.handleChange}
             required
             error-message="This field is required"
+            minlength=3
+       
           ></vaadin-text-field>
           <vaadin-text-field
             label="LastName"
             name="LastName"
+            minlength=1
             value=${this.customer.LastName}
             @change=${this.handleChange}
             required
@@ -84,12 +96,13 @@ export class CustomerFeedback extends LitElement {
           ></vaadin-email-field>
           <vaadin-number-field
             label="Phone Number"
-            name="phonenumber"
+            name="PhoneNumber"
             value=${this.customer.PhoneNumber}
             @change=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-number-field>
+         
 
           <vaadin-date-picker
             name="dob"
@@ -99,31 +112,37 @@ export class CustomerFeedback extends LitElement {
             required
             error-message="This field is required"
           ></vaadin-date-picker>
+          
           <vaadin-radio-group
             label="Gender"
+            
+       
             theme="horizontal"
             
-            data-checked
-            error-message="This field is required"
-            @click=${this.handleChange}>
-          >
-            <vaadin-radio-button 
-            label="Male" 
-            name="Male"  
-             value="Male"
+            >
+         
+            <vaadin-radio-button
+            label="Male"
+            name="Gender"
+            value="Male"
+            @value-changed=${this.handleChange}
+           
             >
             </vaadin-radio-button>
             <vaadin-radio-button
               label="Female"
-              name="Female"
+              name="Gender"
               value="Female"
-              
+              @value-changed=${this.handleChange}
+             
             ></vaadin-radio-button>
-          </vaadin-radio-group>
+            </vaadin-radio-group>
+
           <vaadin-text-field
             label="City"
             name="City"
             required
+            value=${this.customer.City}
             @change=${this.handleChange}
             error-message="This field is required"
           ></vaadin-text-field>
@@ -163,9 +182,12 @@ export class CustomerFeedback extends LitElement {
         >
           <vaadin-button  theme="primary" 
           @click ="${this.formsubmit}"
-          >Submit</vaadin-button>
+          >Submit </vaadin-button>
           <vaadin-button theme="secondary"
-          @click ="${this.formcancel}">Cancel</vaadin-button>
+          >
+          <a href="/" style="color:Blue;text-decoration:none"
+          >Back</a>
+          </vaadin-button>
         </vaadin-horizontal-layout>
       </vaadin-vertical-layout>
       </vaadin-form-layout>
@@ -192,15 +214,130 @@ export class CustomerFeedback extends LitElement {
     // console.log(`First Name: ${this.customer.FirstName}`);
     // console.log(`Last Name: ${this.customer.LastName}`);
   }
+
+  validate = () => {
+    // First Name
+    if (this.customer.FirstName === null) {
+      // console.log(this.customer.FirstName.valueOf);
+      alert('First Name is filed is required');
+    }
+    if (this.customer.FirstName.length < 3) {
+      alert('First Name sholud containe min 3 letters');
+    }
+    if (!this.regex.test(this.customer.FirstName)) {
+      alert('First Name should contain only alphanumeric and no space!');
+    }
+    // Lastst Name
+    if (this.customer.LastName === null) {
+      // console.log(this.customer.LastName.valueOf);
+      alert('Last Name is filed is required');
+    }
+    if (this.customer.LastName.length < 1) {
+      alert('Last Name sholud containe min 1 letters');
+    }
+    if (!this.regex.test(this.customer.LastName)) {
+      alert('Last Name should contain only alphanumeric and no space!');
+    }
+    // email
+
+    if (this.customer.email === null) {
+      // console.log(this.customer.email.valueOf);
+      alert('email is filed is required');
+    }
+    if (!this.emailRegex.test(this.customer.email)) {
+      alert('Invalid email format !');
+    }
+    if (this.customer.email.length < 3) {
+      alert('email sholud containe min 3 letters');
+    }
+
+    // Phone Number
+
+    if (!this.customer.PhoneNumber) {
+      // console.log(this.customer.PhoneNumber..valueOf);
+      alert('PhoneNumber. is filed is required');
+    }
+
+    if (this.customer.PhoneNumber.length < 5) {
+      alert('PhoneNumber sholud containe min 5 numbers');
+    }
+
+    // DOb
+    if (!this.customer.dob) {
+      // console.log(this.customer.PhoneNumber..valueOf);
+      alert('DOb is filed is required');
+    }
+    // Gender
+    if (this.customer.Gender === null) {
+      // console.log(this.customer.PhoneNumber..valueOf);
+      alert('Gender is filed is required');
+    }
+
+    //City
+    if (!this.customer.City) {
+      // console.log(this.customer.City.valueOf);
+      alert('City is filed is required');
+    }
+    if (this.customer.City.length < 3) {
+      alert('City sholud containe min 3 letters');
+    }
+    if (!this.regex.test(this.customer.City)) {
+      alert('City should contain only alphanumeric and no space!');
+    }
+
+    //State
+    if (!this.customer.State) {
+      // console.log(this.customer.State.valueOf);
+      alert('State is filed is required');
+    }
+    if (this.customer.State.length < 3) {
+      alert('State sholud containe min 3 letters');
+    }
+    if (!this.regex.test(this.customer.State)) {
+      alert('State should contain only alphanumeric and no space!');
+    }
+    //Country
+    if (!this.customer.Country) {
+      // console.log(this.customer.Country.valueOf);
+      alert('Country is filed is required');
+    }
+    if (this.customer.Country.length < 3) {
+      alert('Country sholud containe min 3 letters');
+    }
+    if (!this.regex.test(this.customer.Country)) {
+      alert('Country should contain only alphanumeric and no space!');
+    }
+    // PostalCode
+    if (this.customer.PostalCode === null) {
+      // console.log(this.customer.PostalCode..valueOf);
+      alert('PostalCode. is filed is required');
+    }
+
+    if (this.customer.PostalCode.length < 5) {
+      alert('PostalCode sholud containe min 5 numbers');
+    }
+  };
+
   formsubmit() {
-    // console.log(this.customer.FirstName);
-    console.log(JSON.stringify(this.customer, null, 2));
+    // let regex = /^[A-Za-z0-9\-]+$/;
+    this.validate();
+
+    console.log('This is data :', JSON.stringify(this.customer, null, 2));
     // console.log(typeof this.customer);
     // this.customer = this.customer;
+    this.fomdata.push({...this.customer});
+    console.log(JSON.stringify(this.fomdata, null, 2));
+    localStorage.setItem('this.fomdata', JSON.stringify(this.fomdata, null, 2));
+
     localStorage.setItem(
       'this.customer',
       JSON.stringify(this.customer, null, 2)
     );
+    // this.customer.LastName = '';
+    // this.customer = {} as Customer;
+
+    console.log(JSON.stringify(this.customer, null, 2), typeof this.customer);
+    // ` {<a href="/" style="color:white;text-decoration:none"></a>} `;
   }
   getData() {
     // let data = {...this.customer};
@@ -212,22 +349,38 @@ export class CustomerFeedback extends LitElement {
     // );
 
     let mydata = JSON.parse(localStorage.getItem('this.customer') || '{}');
-    console.log(mydata.FirstName, typeof mydata);
-  }
-  formcancel() {
-    this.customer = {
-      FirstName: '',
-      LastName: '',
-      PhoneNumber: 0,
-      email: '',
-      dob: 0,
-      Gender: '',
+    console.log(
+      // mydata.PhoneNumber,
+      // typeof mydata.PhoneNumber,
 
-      City: '',
-      State: '',
-      Country: '',
-      PostalCode: '',
-    };
-    console.log(JSON.stringify(this.customer, null, 2));
+      mydata.Gender,
+      typeof mydata.Gender,
+      // mydata.dob,
+      // mydata.City,
+      // mydata.State,
+      // mydata.Country,
+      // mydata.PostalCode,
+      // typeof mydata.PostalCode,
+      // mydata.FirstName,
+      typeof mydata
+    );
   }
+  // formcancel() {
+  //   this.customer = {
+  //     FirstName: '',
+  //     LastName: '',
+  //     // PhoneNumber: 0,
+  //     PhoneNumber: '',
+  //     email: '',
+  //     // dob: 0,
+  //     dob: '',
+  //     Gender: '',
+
+  //     City: '',
+  //     State: '',
+  //     Country: '',
+  //     PostalCode: '',
+  //   };
+  //   console.log(JSON.stringify(this.customer, null, 2));
+  // }
 }

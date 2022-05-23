@@ -3,15 +3,53 @@
 <html>
   <head>
     <meta charset="utf-8" />
+
     <title>Lit Starter Kit</title>
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
+    <!--  -->
+    <script
+      nomodule
+      src="https://unpkg.com/@vaadin/router/dist/vaadin-router.umd.js"
+    ></script>
+    <script type="module" src="https://unpkg.com/@vaadin/router"></script>
+    <script type="module">
+      import {Router} from 'https://unpkg.com/@vaadin/router';
+    </script>
     <script type="module" src="./customer-dashboard.js"></script>
-    <script type="module" src="../customer-details.js"></script>
+    <script type="module" src="./customer-details.js"></script>
+    <script type="module" src="./customer-feedback.js"></script>
+    <script type="module" src="./customer-feedback1.js"></script>
+    <script type="module" src="./feedback-customer.js"></script>
+
+    <!--  -->
   </head>
   <body>
-    <a href="/dev/index.html">Component Demo</a>
-    <!-- <customer-dashboard> </customer-dashboard> -->
-    <customer-details> </customer-details>
+    <!-- a -->
+    <!-- <div
+      id="myGrid"
+      style="width: 600px; height: 200px"
+      class="ag-theme-alpine"
+    ></div> -->
+
+    <!--v  -->
+    <!-- <a href="/dev/index.html">Component Demo</a> -->
+
+    <nav>
+      <a href="/">DashBoard</a>
+      <a href="/customer">Customer</a>
+      <a href="/feedback">Feedback</a>
+    </nav>
+
+    <main id="outlet"></main>
+    <!-- <main>
+     
+    </main> -->
+    <!-- <script src="./vendor/webcomponents-loader.js"></script> -->
+    <script type="module" src="./index1.js"></script>
+
+    <!-- <customer-dashboard> </customer-dashboard>
+    <customer-details> </customer-details> -->
+    <!-- <customer-feedback1></customer-feedback1> -->
   </body>
 </html>

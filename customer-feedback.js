@@ -23,11 +23,13 @@ import '@vaadin/list-box';
 import '@vaadin/select';
 import '@vaadin/text-area';
 import { Feedback } from './feedback';
-// import {Employee} from 'feedback-form ';
-let CustomerFeedback = class CustomerFeedback extends LitElement {
+let CustomerFeedback = 
+// @customElement('customer-feedback')
+class CustomerFeedback extends LitElement {
     constructor() {
         super(...arguments);
         this.feedback = new Feedback();
+        this.fbdata = [{}];
         this.head = 'Customer Feedback';
         this.title = ' Tell us how do you think..!';
         this.items = [
@@ -44,8 +46,6 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
                 value: 'May not be',
             },
         ];
-        this.charLimit = 300;
-        this.text = '';
     }
     render() {
         return html `
@@ -86,20 +86,17 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
               value="Too small"
               label="Too small"
               name="Size"
-              checked
             ></vaadin-radio-button>
             <vaadin-radio-button
               value="Just Right"
               label="Just Right"
               name="Size"
-              checked
             ></vaadin-radio-button>
 
             <vaadin-radio-button
               value="Too Large"
               label="Too Large"
               name="Size"
-              checked
             ></vaadin-radio-button>
           </vaadin-radio-group>
 
@@ -112,14 +109,12 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
               label="Yes"
               name="ContactUs"
               @click=${this.handleChange}
-              checked
             ></vaadin-radio-button>
             <vaadin-radio-button
               value="No"
               label="No"
               name="ContactUs"
               @click=${this.handleChange}
-              checked
             ></vaadin-radio-button>
           </vaadin-radio-group>
 
@@ -139,10 +134,6 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
           <vaadin-text-area
             name="OtherFeedabck"
             @change=${this.handleChange}
-            .maxlength="${this.charLimit}"
-            .value="${this.text}"
-            @value-changed="${(e) => (this.text = e.detail.value)}"
-            .helperText="${`${this.text.length}/${this.charLimit}`}"
           ></vaadin-text-area>
 
           <vaadin-horizontal-layout theme="spacing">
@@ -167,6 +158,9 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
     }
     fbformsubmit() {
         console.log(JSON.stringify(this.feedback, null, 2));
+        this.fbdata.push({ ...this.feedback });
+        console.log(JSON.stringify(this.fbdata, null, 2));
+        localStorage.setItem('this.fbdata', JSON.stringify(this.fbdata, null, 2));
         localStorage.setItem('this.feedback', JSON.stringify(this.feedback, null, 2));
     }
     getfbData() {
@@ -191,18 +185,13 @@ CustomerFeedback.styles = css `
   `;
 __decorate([
     property()
-], CustomerFeedback.prototype, "head", void 0);
-__decorate([
-    property()
-], CustomerFeedback.prototype, "employee", void 0);
+], CustomerFeedback.prototype, "title", void 0);
 __decorate([
     state()
 ], CustomerFeedback.prototype, "items", void 0);
-__decorate([
-    state()
-], CustomerFeedback.prototype, "text", void 0);
 CustomerFeedback = __decorate([
     customElement('customer-feedback')
+    // @customElement('customer-feedback')
 ], CustomerFeedback);
 export { CustomerFeedback };
 //# sourceMappingURL=customer-feedback.js.map

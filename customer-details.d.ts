@@ -9,13 +9,18 @@ import '@vaadin/radio-group';
 import '@vaadin/button';
 import '@vaadin/radio-group/src/vaadin-radio-button';
 import '@vaadin/form-layout';
+import '@vaadin/dialog';
 import '@vaadin/horizontal-layout';
 import { Customer } from './customer';
-export declare class CustomerFeedback extends LitElement {
+export declare class CustomerDetails extends LitElement {
     customer: Customer;
+    fomdata: {}[];
+    regex: RegExp;
+    emailRegex: RegExp;
     static styles: import("lit").CSSResult;
     title: string;
     private responsiveSteps;
+    errors: any;
     protected render(): import("lit-html").TemplateResult<1>;
     handleChange(e: {
         target: {
@@ -23,8 +28,8 @@ export declare class CustomerFeedback extends LitElement {
             name?: any;
         };
     }): void;
+    validate: () => void;
     formsubmit(): void;
     getData(): void;
-    formcancel(): void;
 }
 //# sourceMappingURL=customer-details.d.ts.map

@@ -18,11 +18,13 @@ import '@vaadin/list-box';
 import '@vaadin/select';
 import '@vaadin/text-area';
 import {Feedback} from './feedback';
-// import {Employee} from 'feedback-form ';
 
 @customElement('customer-feedback')
+
+// @customElement('customer-feedback')
 export class CustomerFeedback extends LitElement {
   feedback: Feedback = new Feedback();
+  fbdata = [{}];
   static override styles = css`
     h1 {
       text-align: center;
@@ -37,11 +39,9 @@ export class CustomerFeedback extends LitElement {
       justify-content: center;
     }
   `;
-  @property()
   head = 'Customer Feedback';
-  override title = ' Tell us how do you think..!';
   @property()
-  employee: any;
+  override title = ' Tell us how do you think..!';
 
   @state()
   private items = [
@@ -58,10 +58,6 @@ export class CustomerFeedback extends LitElement {
       value: 'May not be',
     },
   ];
-  private charLimit = 300;
-
-  @state()
-  private text = '';
 
   protected override render() {
     return html`
@@ -102,20 +98,17 @@ export class CustomerFeedback extends LitElement {
               value="Too small"
               label="Too small"
               name="Size"
-              checked
             ></vaadin-radio-button>
             <vaadin-radio-button
               value="Just Right"
               label="Just Right"
               name="Size"
-              checked
             ></vaadin-radio-button>
 
             <vaadin-radio-button
               value="Too Large"
               label="Too Large"
               name="Size"
-              checked
             ></vaadin-radio-button>
           </vaadin-radio-group>
 
@@ -128,14 +121,12 @@ export class CustomerFeedback extends LitElement {
               label="Yes"
               name="ContactUs"
               @click=${this.handleChange}
-              checked
             ></vaadin-radio-button>
             <vaadin-radio-button
               value="No"
               label="No"
               name="ContactUs"
               @click=${this.handleChange}
-              checked
             ></vaadin-radio-button>
           </vaadin-radio-group>
 
@@ -155,10 +146,6 @@ export class CustomerFeedback extends LitElement {
           <vaadin-text-area
             name="OtherFeedabck"
             @change=${this.handleChange}
-            .maxlength="${this.charLimit}"
-            .value="${this.text}"
-            @value-changed="${(e: CustomEvent) => (this.text = e.detail.value)}"
-            .helperText="${`${this.text.length}/${this.charLimit}`}"
           ></vaadin-text-area>
 
           <vaadin-horizontal-layout theme="spacing">
@@ -183,6 +170,10 @@ export class CustomerFeedback extends LitElement {
   }
   fbformsubmit() {
     console.log(JSON.stringify(this.feedback, null, 2));
+
+    this.fbdata.push({...this.feedback});
+    console.log(JSON.stringify(this.fbdata, null, 2));
+    localStorage.setItem('this.fbdata', JSON.stringify(this.fbdata, null, 2));
 
     localStorage.setItem(
       'this.feedback',
