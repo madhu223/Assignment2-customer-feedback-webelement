@@ -1,6 +1,6 @@
 import './customer-dashboard';
 import './customer-details';
-import './customer-feedback1';
 import './feedback-customer';
 import './not-found';
+import './customer-feedback1';
 //# sourceMappingURL=index1.d.ts.map

@@ -25,7 +25,9 @@ import '@vaadin/radio-group/src/vaadin-radio-button';
 import '@vaadin/form-layout';
 import '@vaadin/dialog';
 import '@vaadin/horizontal-layout';
+import '@vaadin/checkbox';
 import { Customer } from './customer';
+import '@vaadin/text-area';
 let CustomerDetails = class CustomerDetails extends LitElement {
     constructor() {
         super(...arguments);
@@ -167,7 +169,7 @@ let CustomerDetails = class CustomerDetails extends LitElement {
             label="FirstName"
             name="FirstName"
             value=${this.customer.FirstName}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
             minlength=3
@@ -178,7 +180,7 @@ let CustomerDetails = class CustomerDetails extends LitElement {
             name="LastName"
             minlength=1
             value=${this.customer.LastName}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-text-field>
@@ -188,14 +190,14 @@ let CustomerDetails = class CustomerDetails extends LitElement {
             error-message="This field is required"
             name="email"
             value=${this.customer.email}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             error-message="Please enter a valid email address"
           ></vaadin-email-field>
           <vaadin-number-field
             label="Phone Number"
             name="PhoneNumber"
             value=${this.customer.PhoneNumber}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-number-field>
@@ -205,7 +207,7 @@ let CustomerDetails = class CustomerDetails extends LitElement {
             name="dob"
             label="D.O.B"
             value=${this.customer.dob}
-            @change=${this.handleChange}
+            @value-changed=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-date-picker>
@@ -213,16 +215,15 @@ let CustomerDetails = class CustomerDetails extends LitElement {
           <vaadin-radio-group
             label="Gender"
             
-       
             theme="horizontal"
-            
+            @click=${this.handleChange}
             >
          
             <vaadin-radio-button
             label="Male"
             name="Gender"
             value="Male"
-            @value-changed=${this.handleChange}
+            
            
             >
             </vaadin-radio-button>
@@ -230,7 +231,7 @@ let CustomerDetails = class CustomerDetails extends LitElement {
               label="Female"
               name="Gender"
               value="Female"
-              @value-changed=${this.handleChange}
+            
              
             ></vaadin-radio-button>
             </vaadin-radio-group>
@@ -240,7 +241,7 @@ let CustomerDetails = class CustomerDetails extends LitElement {
             name="City"
             required
             value=${this.customer.City}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             error-message="This field is required"
           ></vaadin-text-field>
 
@@ -248,7 +249,7 @@ let CustomerDetails = class CustomerDetails extends LitElement {
             label="State"
             name="State"
             value=${this.customer.State}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-text-field>
@@ -257,7 +258,8 @@ let CustomerDetails = class CustomerDetails extends LitElement {
             label="Country"
             name="Country"
             value=${this.customer.Country}
-            @change=${this.handleChange}
+         
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-text-field>
@@ -265,11 +267,38 @@ let CustomerDetails = class CustomerDetails extends LitElement {
             label="PostalCode"
             name="PostalCode"
             value=${this.customer.PostalCode}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-number-field>
+          <!-- <vaadin-checkbox 
+            label='Feedback'
+            name='Feedback'
+            
+            .value=${this.customer}
+              @checked-changed=${this.handleChange}
+          >
+
+          </vaadin-checkbox> -->
         
+          <!-- <label>
+            <h4>How do you rate the quality of the product ?</h4>
+          </label>
+          <vaadin-number-field
+            name="ProductRating"
+            value=${this.customer}
+            @change=${this.handleChange}
+            required
+            error-message="This field is required"
+          >
+          </vaadin-number-field>
+          <label>
+            <h4>Would you give any other feedback to us ?</h4>
+          </label>
+          <vaadin-text-area
+            name="OtherFeedabck"
+            @change=${this.handleChange}
+          ></vaadin-text-area> -->
 
         <!-- <vaadin-button theme="primary">Submit</vaadin-button> -->
 
@@ -284,6 +313,11 @@ let CustomerDetails = class CustomerDetails extends LitElement {
           >
           <a href="/" style="color:Blue;text-decoration:none"
           >Back</a>
+          </vaadin-button>
+          <vaadin-button theme="primary"
+          >
+          <a href="/feedback" style="color:white;text-decoration:none; width:30px"
+          >Feedback </a>
           </vaadin-button>
         </vaadin-horizontal-layout>
       </vaadin-vertical-layout>
@@ -318,11 +352,36 @@ let CustomerDetails = class CustomerDetails extends LitElement {
         this.fomdata.push({ ...this.customer });
         console.log(JSON.stringify(this.fomdata, null, 2));
         localStorage.setItem('this.fomdata', JSON.stringify(this.fomdata, null, 2));
-        localStorage.setItem('this.customer', JSON.stringify(this.customer, null, 2));
+        // localStorage.setItem(
+        //   'this.customer',
+        //   JSON.stringify(this.customer, null, 2)
+        // );
         // this.customer.LastName = '';
         // this.customer = {} as Customer;
         console.log(JSON.stringify(this.customer, null, 2), typeof this.customer);
-        // ` {<a href="/" style="color:white;text-decoration:none"></a>} `;
+        //  {<a href="/" style="color:white;text-decoration:none"></a>} ;
+        // this.customer.FirstName = '';
+        // this.customer.LastName = '';
+        // this.customer.PhoneNumber = '';
+        // email: '',
+        // dob: '',
+        // Gender: '',
+        // City: '',
+        // State: '',
+        // Country: '',
+        // PostalCode: '',
+        // this.customer = {
+        //   FirstName: '',
+        //   LastName: '',
+        //   PhoneNumber: '',
+        //   email: '',
+        //   dob: '',
+        //   Gender: '',
+        //   City: '',
+        //   State: '',
+        //   Country: '',
+        //   PostalCode: '',
+        // };
     }
     getData() {
         // let data = {...this.customer};

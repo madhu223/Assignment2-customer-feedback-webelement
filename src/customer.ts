@@ -1,5 +1,4 @@
 export class Customer {
-  [x: string]: any;
   // FirstName!: string;
   // LastName!: string;
   // PhoneNumber!: number;
@@ -21,4 +20,12 @@ export class Customer {
   State!: '';
   Country!: '';
   PostalCode!: '';
+  // Feedback!: {
+  //   ProductRating: number;
+  //   DeliveryRating: number;
+  //   Size: number;
+  //   ContactUs: string;
+  //   Recommond: string;
+  //   OtherFeedabck: string;
+  // };
 }

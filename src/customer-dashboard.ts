@@ -5,7 +5,9 @@ import '@vaadin/split-layout';
 // import { applyTheme } from 'Frontend/generated/theme';
 import './customer-details';
 import './customer-feedback1';
+import './feedback-customer';
 // import {Router} from '@vaadin/router';
+import '@vaadin/grid/vaadin-grid-selection-column.js';
 
 // import 'ag-grid-community/dist/styles/ag-grid.css';
 // import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
@@ -14,8 +16,11 @@ import './customer-feedback1';
 @customElement('customer-dashboard')
 export class CustomerDashboard extends LitElement {
   data = JSON.parse(localStorage.getItem('this.fomdata') || '{}');
+  data1 = this.data.shift();
 
   fdata = JSON.parse(localStorage.getItem('this.fbdata') || '{}');
+  fdata1 = this.fdata.shift();
+  fulldata = [{}];
   @property()
   override title = 'Customer Dashboard';
   // @state()
@@ -53,7 +58,7 @@ export class CustomerDashboard extends LitElement {
           >Add Customer</a
         >
       </vaadin-button>
-      <!-- <vaadin-grid .items="${this.data}">
+      <!-- <vaadin-grid .items="${this.data1}">
         <vaadin-grid-column path="firstName"></vaadin-grid-column>
         <vaadin-grid-column path="lastName"></vaadin-grid-column>
         <vaadin-grid-column path="email"></vaadin-grid-column>
@@ -62,6 +67,7 @@ export class CustomerDashboard extends LitElement {
       <vaadin-split-layout>
         <div>
           <vaadin-grid .items="${this.data}">
+            <!-- <vaadin-grid-selection-column></vaadin-grid-selection-column> -->
             <vaadin-grid-column path="FirstName"> </vaadin-grid-column>
             <vaadin-grid-column path="LastName"></vaadin-grid-column>
             <vaadin-grid-column path="email"></vaadin-grid-column>
@@ -83,6 +89,12 @@ export class CustomerDashboard extends LitElement {
         <customer-details> </customer-details>
         <customer-feedback></customer-feedback>
       </vaadin-split-layout> -->
+      <!-- for(){
+      
+
+    } -->
+
+      <vaadin-button @click=${this.fetchData}> Fetch Data </vaadin-button>
     `;
   }
   // handleCustomer() {
@@ -98,4 +110,18 @@ export class CustomerDashboard extends LitElement {
   //     <!-- <customer-details> </customer-details> -->
   //   `;
   // }
+
+  fetchData() {
+    // for (const key in this.data) {
+    //   console.log(
+    //     `${key}: ${this.data[key].FirstName} ${this.data[key].LastName}${this.data[key].email}`
+    //   );
+
+    //   // console.log('Phone number is :', `{${this.data[key].PhoneNumber}`);
+    //   // console.log(`${key}: ${this.data[key].dob}`);
+    //   // console.log(`${key}: ${this.data[key].City}`);
+    // }
+    // console.log(this.data, this.fdata, typeof this.data, typeof this.fdata);
+    console.log((this.fulldata = [this.data, this.fdata]));
+  }
 }

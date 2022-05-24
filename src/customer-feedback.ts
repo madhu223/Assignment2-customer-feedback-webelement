@@ -173,12 +173,14 @@ export class CustomerFeedback extends LitElement {
 
     this.fbdata.push({...this.feedback});
     console.log(JSON.stringify(this.fbdata, null, 2));
-    localStorage.setItem('this.fbdata', JSON.stringify(this.fbdata, null, 2));
+    if (this.fbdata != null) {
+      localStorage.setItem('this.fbdata', JSON.stringify(this.fbdata, null, 2));
+    }
 
-    localStorage.setItem(
-      'this.feedback',
-      JSON.stringify(this.feedback, null, 2)
-    );
+    // localStorage.setItem(
+    //   'this.feedback',
+    //   JSON.stringify(this.feedback, null, 2)
+    // );
   }
   getfbData() {
     let myfbdata = JSON.parse(localStorage.getItem('this.feedback') || '{}');

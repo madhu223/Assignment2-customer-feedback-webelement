@@ -170,11 +170,11 @@ export class CustomerFeedback extends LitElement {
         
     
         >
-          <vaadin-button  theme="primary" 
+          <!-- <vaadin-button  theme="primary" 
           @click ="${this.formsubmit}"
           >Submit</vaadin-button>
           <vaadin-button theme="secondary"
-          @click ="${this.formcancel}">Cancel</vaadin-button>
+         >Cancel</vaadin-button> -->
         </vaadin-horizontal-layout>
       </vaadin-vertical-layout>
       </vaadin-form-layout>
@@ -247,22 +247,22 @@ export class CustomerFeedback extends LitElement {
       typeof mydata
     );
   }
-  formcancel() {
-    this.customer = {
-      FirstName: '',
-      LastName: '',
-      // PhoneNumber: 0,
-      PhoneNumber: '',
-      email: '',
-      // dob: 0,
-      dob: '',
-      Gender: '',
+  // formcancel() {
+  //   this.customer = {
+  //     FirstName: '',
+  //     LastName: '',
+  //     // PhoneNumber: 0,
+  //     PhoneNumber: '',
+  //     email: '',
+  //     // dob: 0,
+  //     dob: '',
+  //     Gender: '',
 
-      City: '',
-      State: '',
-      Country: '',
-      PostalCode: '',
-    };
-    console.log(JSON.stringify(this.customer, null, 2));
-  }
+  //     City: '',
+  //     State: '',
+  //     Country: '',
+  //     PostalCode: '',
+  //   };
+  //   console.log(JSON.stringify(this.customer, null, 2));
+  // }
 }

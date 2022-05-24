@@ -11,7 +11,9 @@ import '@vaadin/radio-group/src/vaadin-radio-button';
 import '@vaadin/form-layout';
 import '@vaadin/dialog';
 import '@vaadin/horizontal-layout';
+import '@vaadin/checkbox';
 import { Customer } from './customer';
+import '@vaadin/text-area';
 export declare class CustomerDetails extends LitElement {
     customer: Customer;
     fomdata: {}[];

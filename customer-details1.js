@@ -37,6 +37,23 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
             // Use two columns, if layout's width exceeds 500px
             { minWidth: '500px', columns: 2 },
         ];
+        // formcancel() {
+        //   this.customer = {
+        //     FirstName: '',
+        //     LastName: '',
+        //     // PhoneNumber: 0,
+        //     PhoneNumber: '',
+        //     email: '',
+        //     // dob: 0,
+        //     dob: '',
+        //     Gender: '',
+        //     City: '',
+        //     State: '',
+        //     Country: '',
+        //     PostalCode: '',
+        //   };
+        //   console.log(JSON.stringify(this.customer, null, 2));
+        // }
     }
     render() {
         return html `
@@ -158,11 +175,11 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
         
     
         >
-          <vaadin-button  theme="primary" 
+          <!-- <vaadin-button  theme="primary" 
           @click ="${this.formsubmit}"
           >Submit</vaadin-button>
           <vaadin-button theme="secondary"
-          @click ="${this.formcancel}">Cancel</vaadin-button>
+         >Cancel</vaadin-button> -->
         </vaadin-horizontal-layout>
       </vaadin-vertical-layout>
       </vaadin-form-layout>
@@ -223,23 +240,6 @@ let CustomerFeedback = class CustomerFeedback extends LitElement {
         // typeof mydata.PostalCode,
         // mydata.FirstName,
         typeof mydata);
-    }
-    formcancel() {
-        this.customer = {
-            FirstName: '',
-            LastName: '',
-            // PhoneNumber: 0,
-            PhoneNumber: '',
-            email: '',
-            // dob: 0,
-            dob: '',
-            Gender: '',
-            City: '',
-            State: '',
-            Country: '',
-            PostalCode: '',
-        };
-        console.log(JSON.stringify(this.customer, null, 2));
     }
 };
 CustomerFeedback.styles = css `

@@ -1,5 +1,4 @@
 export declare class Customer {
-    [x: string]: any;
     FirstName: '';
     LastName: '';
     PhoneNumber: '';
