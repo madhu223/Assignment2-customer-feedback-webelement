@@ -30,6 +30,7 @@ export declare class CustomerDetails extends LitElement {
             name?: any;
         };
     }): void;
+    handleGender(e: any, _key: any): void;
     validate: () => void;
     formsubmit(): void;
     getData(): void;

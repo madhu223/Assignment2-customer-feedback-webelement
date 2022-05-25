@@ -62,15 +62,15 @@ export class CustomerFeedback extends LitElement {
           <vaadin-text-field
             label="FirstName"
             name="FirstName"
-            value=${this.customer.FirstName}
+            value=${this.customer.firstName}
             @change=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-text-field>
           <vaadin-text-field
             label="LastName"
-            name="LastName"
-            value=${this.customer.LastName}
+            name="lastName"
+            value=${this.customer.lastName}
             @change=${this.handleChange}
             required
             error-message="This field is required"
@@ -86,8 +86,8 @@ export class CustomerFeedback extends LitElement {
           ></vaadin-email-field>
           <vaadin-number-field
             label="Phone Number"
-            name="PhoneNumber"
-            value=${this.customer.PhoneNumber}
+            name="phoneNumber"
+            value=${this.customer.phoneNumber}
             @change=${this.handleChange}
             required
             error-message="This field is required"
@@ -130,17 +130,17 @@ export class CustomerFeedback extends LitElement {
 
           <vaadin-text-field
             label="City"
-            name="City"
+            name="city"
             required
-            value=${this.customer.City}
+            value=${this.customer.city}
             @change=${this.handleChange}
             error-message="This field is required"
           ></vaadin-text-field>
 
           <vaadin-text-field
             label="State"
-            name="State"
-            value=${this.customer.State}
+            name="state"
+            value=${this.customer.state}
             @change=${this.handleChange}
             required
             error-message="This field is required"
@@ -148,16 +148,16 @@ export class CustomerFeedback extends LitElement {
 
           <vaadin-text-field
             label="Country"
-            name="Country"
-            value=${this.customer.Country}
+            name="country"
+            value=${this.customer.country}
             @change=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-text-field>
           <vaadin-number-field
             label="PostalCode"
-            name="PostalCode"
-            value=${this.customer.PostalCode}
+            name="postalCode"
+            value=${this.customer.postalCode}
             @change=${this.handleChange}
             required
             error-message="This field is required"
@@ -197,9 +197,9 @@ export class CustomerFeedback extends LitElement {
     this.customer = {...this.customer, [name]: value};
 
     // this.customer.FirstName = e.target.value;
-    // this.customer.LastName = e.target.value;
+    // this.customer.lastName = e.target.value;
     // console.log(`First Name: ${this.customer.FirstName}`);
-    // console.log(`Last Name: ${this.customer.LastName}`);
+    // console.log(`Last Name: ${this.customer.lastName}`);
   }
   formsubmit() {
     if (this.customer !== null) {
@@ -241,8 +241,8 @@ export class CustomerFeedback extends LitElement {
       // mydata.City,
       // mydata.State,
       // mydata.Country,
-      // mydata.PostalCode,
-      // typeof mydata.PostalCode,
+      // mydata.postalCode,
+      // typeof mydata.postalCode,
       // mydata.FirstName,
       typeof mydata
     );
@@ -250,7 +250,7 @@ export class CustomerFeedback extends LitElement {
   // formcancel() {
   //   this.customer = {
   //     FirstName: '',
-  //     LastName: '',
+  //     lastName: '',
   //     // PhoneNumber: 0,
   //     PhoneNumber: '',
   //     email: '',
@@ -261,7 +261,7 @@ export class CustomerFeedback extends LitElement {
   //     City: '',
   //     State: '',
   //     Country: '',
-  //     PostalCode: '',
+  //     postalCode: '',
   //   };
   //   console.log(JSON.stringify(this.customer, null, 2));
   // }

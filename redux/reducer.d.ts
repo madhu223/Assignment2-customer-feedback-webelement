@@ -1,8 +1,8 @@
 export declare const reducer: (state: {
-    customerdata: never[];
+    customerdata: {}[];
 } | undefined, action: {
     type: any;
 }) => {
-    customerdata: never[];
+    customerdata: {}[];
 };
 //# sourceMappingURL=reducer.d.ts.map

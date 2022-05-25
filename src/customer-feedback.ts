@@ -70,8 +70,8 @@ export class CustomerFeedback extends LitElement {
             <h4>How do you rate the quality of the product ?</h4>
           </label>
           <vaadin-text-field
-            name="ProductRating"
-            value=${this.feedback.ProductRating}
+            name="productRating"
+            value=${this.feedback.productRating}
             @change=${this.handleChange}
             required
             error-message="This field is required"
@@ -82,8 +82,8 @@ export class CustomerFeedback extends LitElement {
             <h4>How do you rate the speed of delivery ?</h4>
           </label>
           <vaadin-text-field
-            name="DeliveryRating"
-            value=${this.feedback.DeliveryRating}
+            name="deliveryRating"
+            value=${this.feedback.deliveryRating}
             @change=${this.handleChange}
             required
             error-message="This field is required"
@@ -97,18 +97,18 @@ export class CustomerFeedback extends LitElement {
             <vaadin-radio-button
               value="Too small"
               label="Too small"
-              name="Size"
+              name="size"
             ></vaadin-radio-button>
             <vaadin-radio-button
               value="Just Right"
               label="Just Right"
-              name="Size"
+              name="size"
             ></vaadin-radio-button>
 
             <vaadin-radio-button
               value="Too Large"
               label="Too Large"
-              name="Size"
+              name="size"
             ></vaadin-radio-button>
           </vaadin-radio-group>
 
@@ -119,13 +119,13 @@ export class CustomerFeedback extends LitElement {
             <vaadin-radio-button
               value="Yes"
               label="Yes"
-              name="ContactUs"
+              name="contactUs"
               @click=${this.handleChange}
             ></vaadin-radio-button>
             <vaadin-radio-button
               value="No"
               label="No"
-              name="ContactUs"
+              name="contactUs"
               @click=${this.handleChange}
             ></vaadin-radio-button>
           </vaadin-radio-group>
@@ -136,7 +136,7 @@ export class CustomerFeedback extends LitElement {
           <vaadin-select
             .items="${this.items}"
             .value="${this.items[0].value}"
-            name="Recommond"
+            name="recommond"
             @change=${this.handleChange}
           ></vaadin-select>
 
@@ -144,7 +144,7 @@ export class CustomerFeedback extends LitElement {
             <h4>Would you give any other feedback to us ?</h4>
           </label>
           <vaadin-text-area
-            name="OtherFeedabck"
+            name="otherFeedabck"
             @change=${this.handleChange}
           ></vaadin-text-area>
 
@@ -184,7 +184,7 @@ export class CustomerFeedback extends LitElement {
   }
   getfbData() {
     let myfbdata = JSON.parse(localStorage.getItem('this.feedback') || '{}');
-    console.log(myfbdata.ProductRating, typeof myfbdata);
+    console.log(myfbdata.productRating, typeof myfbdata);
     console.log(myfbdata, typeof myfbdata);
   }
 }

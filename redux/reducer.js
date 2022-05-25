@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    customerdata: [],
+    customerdata: [{}],
 };
 export const reducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {

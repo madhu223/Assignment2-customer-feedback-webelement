@@ -14,6 +14,8 @@ import './customer-feedback1';
 import './feedback-customer';
 // import {Router} from '@vaadin/router';
 import '@vaadin/grid/vaadin-grid-selection-column.js';
+import '@vaadin/radio-group';
+import './customers-aggrid';
 // import 'ag-grid-community/dist/styles/ag-grid.css';
 // import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 // import { Grid } from 'ag-grid-community';
@@ -71,19 +73,19 @@ let CustomerDashboard = class CustomerDashboard extends LitElement {
         <div>
           <vaadin-grid .items="${this.data}">
             <!-- <vaadin-grid-selection-column></vaadin-grid-selection-column> -->
-            <vaadin-grid-column path="FirstName"> </vaadin-grid-column>
-            <vaadin-grid-column path="LastName"></vaadin-grid-column>
+            <vaadin-grid-column path="firstName"> </vaadin-grid-column>
+            <vaadin-grid-column path="lastName"></vaadin-grid-column>
             <vaadin-grid-column path="email"></vaadin-grid-column>
-            <!-- <vaadin-grid-column path="City"></vaadin-grid-column> -->
+            <vaadin-grid-column path="gender"></vaadin-grid-column>
           </vaadin-grid>
         </div>
 
         <div>
           <vaadin-grid .items="${this.fdata}">
-            <vaadin-grid-column path="ProductRating"></vaadin-grid-column>
-            <vaadin-grid-column path="DeliveryRating"></vaadin-grid-column>
-            <!-- <vaadin-grid-column path="Recommond"></vaadin-grid-column> -->
-            <vaadin-grid-column path="OtherFeedabck"></vaadin-grid-column>
+            <vaadin-grid-column path="productRating"></vaadin-grid-column>
+            <vaadin-grid-column path="deliveryRating"></vaadin-grid-column>
+            <vaadin-grid-column path="recommond"></vaadin-grid-column>
+            <vaadin-grid-column path="otherFeedabck"></vaadin-grid-column>
             <!-- <vaadin-grid-column path="ContactUs"></vaadin-grid-column> -->
           </vaadin-grid>
         </div>
@@ -96,8 +98,27 @@ let CustomerDashboard = class CustomerDashboard extends LitElement {
       
 
     } -->
+      <!-- <vaadin-radio-group label="Department" theme="vertical"
+      @value-changed=${this.getRadio}
+       >
+        <vaadin-radio-button
+        name='Branch'
+          value="engineering"
+          label="Engineering"
+         
+        ></vaadin-radio-button>
 
+          <vaadin-radio-button name='Branch'  value="humanResources" 
+         label="Human Resources"></vaadin-radio-button>
+          <vaadin-radio-button name='Branch' value="marketing"
+           label="Marketing"></vaadin-radio-button>
+        </vaadin-radio-group>
+
+      </vaadin-radio-group> -->
       <vaadin-button @click=${this.fetchData}> Fetch Data </vaadin-button>
+      <!-- Ag-grid -->
+      <!-- <customers-aggrid></customers-aggrid> -->
+      <!--  -->
     `;
     }
     // handleCustomer() {
@@ -121,6 +142,11 @@ let CustomerDashboard = class CustomerDashboard extends LitElement {
         // }
         // console.log(this.data, this.fdata, typeof this.data, typeof this.fdata);
         console.log((this.fulldata = [this.data, this.fdata]));
+    }
+    getRadio(e) {
+        const { name, value } = e.target;
+        console.log(name, value);
+        console.log(e.target.value);
     }
 };
 __decorate([

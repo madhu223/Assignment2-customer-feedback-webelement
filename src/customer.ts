@@ -9,17 +9,17 @@ export class Customer {
   // State!: string;
   // Country!: string;
   // PostalCode!: string;
-  FirstName!: '';
-  LastName!: '';
-  PhoneNumber!: '';
+  firstName!: '';
+  lastName!: '';
+  phoneNumber!: '';
   email!: '';
   dob!: '';
-  Gender!: '';
+  gender!: '';
 
-  City!: '';
-  State!: '';
-  Country!: '';
-  PostalCode!: '';
+  city!: '';
+  state!: '';
+  country!: '';
+  postalCode!: '';
   // Feedback!: {
   //   ProductRating: number;
   //   DeliveryRating: number;

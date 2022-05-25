@@ -29,6 +29,8 @@ export declare class FeedbackCustomer extends LitElement {
             value: any;
         };
     }): void;
+    handleSize(e: any, _key: any): void;
+    handleContact(e: any, _key: any): void;
     fbformsubmit(): void;
     getfbData(): void;
 }

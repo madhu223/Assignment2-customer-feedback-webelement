@@ -1,13 +1,13 @@
 export declare class Customer {
-    FirstName: '';
-    LastName: '';
-    PhoneNumber: '';
+    firstName: '';
+    lastName: '';
+    phoneNumber: '';
     email: '';
     dob: '';
-    Gender: '';
-    City: '';
-    State: '';
-    Country: '';
-    PostalCode: '';
+    gender: '';
+    city: '';
+    state: '';
+    country: '';
+    postalCode: '';
 }
 //# sourceMappingURL=customer.d.ts.map
