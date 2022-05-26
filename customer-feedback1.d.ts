@@ -15,18 +15,30 @@ import '@vaadin/list-box';
 import '@vaadin/select';
 import '@vaadin/text-area';
 import { Feedback } from './feedback';
-export declare class CustomerFeedbacks extends LitElement {
+import { Customer } from './customer';
+export declare class FeedbackCustomer extends LitElement {
     feedback: Feedback;
+    customer: Customer;
     fbdata: {}[];
+    regex: RegExp;
     static styles: import("lit").CSSResult;
     head: string;
     title: string;
     private items;
     protected render(): import("lit-html").TemplateResult<1>;
+    validatefb: () => void;
     handleChange(e: {
         target: {
             name: any;
             value: any;
+        };
+    }): void;
+    handleSize(e: any, _key: any): void;
+    handleContact(e: any, _key: any): void;
+    handlefbChange(e: {
+        target: {
+            value: any;
+            name?: any;
         };
     }): void;
     fbformsubmit(): void;

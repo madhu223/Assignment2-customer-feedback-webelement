@@ -1,5 +1,5 @@
 export declare class Customer {
-    firstName: '';
+    firstName: string;
     lastName: '';
     phoneNumber: '';
     email: '';
@@ -10,12 +10,12 @@ export declare class Customer {
     country: '';
     postalCode: '';
     feedBack: {
-        productRating: '';
-        deliveryRating: '';
-        size: '';
-        contactUs: '';
-        recommond: '';
-        otherFeedabck: '';
+        productRating: string;
+        deliveryRating: string;
+        size: string;
+        contactUs: string;
+        recommond: string;
+        otherFeedabck: string;
     };
 }
 //# sourceMappingURL=customer.d.ts.map

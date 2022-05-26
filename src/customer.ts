@@ -9,7 +9,7 @@ export class Customer {
   // State!: string;
   // Country!: string;
   // PostalCode!: string;
-  firstName!: '';
+  firstName = '';
   lastName!: '';
   phoneNumber!: '';
   email!: '';
@@ -20,12 +20,12 @@ export class Customer {
   state!: '';
   country!: '';
   postalCode!: '';
-  feedBack!: {
-    productRating: '';
-    deliveryRating: '';
-    size: '';
-    contactUs: '';
-    recommond: '';
-    otherFeedabck: '';
+  feedBack = {
+    productRating: '',
+    deliveryRating: '',
+    size: '',
+    contactUs: '',
+    recommond: '',
+    otherFeedabck: '',
   };
 }

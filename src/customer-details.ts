@@ -178,8 +178,8 @@ export class CustomerDetails extends LitElement {
             label='Feedback'
             name='feedBack'
             
-            value=  ${this.customer}
-             @value-changed =${this.handleChange}
+            value=  ${this.customer.feedBack}
+            @click =${this.handleChange}
           >
 
           </vaadin-checkbox> -->
@@ -189,7 +189,7 @@ export class CustomerDetails extends LitElement {
           </label>
           <vaadin-number-field
             name="productRating"
-            value=${this.customer}
+            value=${this.customer.feedBack.productRating}
             @change=${this.handleChange}
             required
             error-message="This field is required"
@@ -200,6 +200,7 @@ export class CustomerDetails extends LitElement {
           </label>
           <vaadin-text-area
             name="otherFeedabck"
+            value=${this.customer.feedBack.otherFeedabck}
             @change=${this.handleChange}
           ></vaadin-text-area>  -->
 
@@ -219,7 +220,7 @@ export class CustomerDetails extends LitElement {
           </vaadin-button>
           <vaadin-button theme="primary"
           >
-          <a href="/feedback" style="color:white;text-decoration:none; width:30px"
+          <a href="/feedback1" style="color:white;text-decoration:none; width:30px"
           >Feedback </a>
           </vaadin-button>
         </vaadin-horizontal-layout>
@@ -253,6 +254,12 @@ export class CustomerDetails extends LitElement {
     this.customer.gender = e.target.value;
     // console.log((this.customer.gender = e.target.value));
   }
+
+  // handlefbChange(e: {target: {value: any; name?: any}}) {
+  //   const {name, value} = e.target;
+  //   this.customer.feedBack = {...this.customer.feedBack, [name]: value};
+  //   console.log(this.customer.feedBack);
+  // }
 
   validate = () => {
     // First Name

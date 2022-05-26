@@ -63,6 +63,7 @@ let CustomerDashboard = class CustomerDashboard extends LitElement {
           >Add Customer</a
         >
       </vaadin-button>
+
       <!-- <vaadin-grid .items="${this.data1}">
         <vaadin-grid-column path="firstName"></vaadin-grid-column>
         <vaadin-grid-column path="lastName"></vaadin-grid-column>

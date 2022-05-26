@@ -4,6 +4,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+// import {html, LitElement} from 'lit';
+// import {customElement} from 'lit/decorators.js';
 import { css, html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import '@vaadin/text-field';
@@ -23,19 +25,21 @@ import '@vaadin/list-box';
 import '@vaadin/select';
 import '@vaadin/text-area';
 import { Feedback } from './feedback';
-// @customElement('customer-feedback')
-let CustomerFeedbacks = class CustomerFeedbacks extends LitElement {
+import { Customer } from './customer';
+let FeedbackCustomer = class FeedbackCustomer extends LitElement {
     constructor() {
         super(...arguments);
         this.feedback = new Feedback();
+        this.customer = new Customer();
         this.fbdata = [{}];
+        this.regex = /^[0-9]$/;
         this.head = 'Customer Feedback';
         this.title = ' Tell us how do you think..!';
         this.items = [
-            {
-                label: 'select',
-                value: 'select',
-            },
+            // {
+            //   label: 'select',
+            //   value: 'select',
+            // },
             {
                 label: 'May be',
                 value: 'May be',
@@ -45,20 +49,59 @@ let CustomerFeedbacks = class CustomerFeedbacks extends LitElement {
                 value: 'May not be',
             },
         ];
+        // validation
+        this.validatefb = () => {
+            // Product Rating
+            if (!this.customer.feedBack.productRating) {
+                // console.log(this.feedback.productRating);
+                alert('productRating is filed is required');
+            }
+            // if (this.feedback.productRating < 10) {
+            //   console.log(this.feedback.productRating < 10);
+            //   alert('Product rating sholud betweeen 1-10');
+            // }
+            if (!this.regex.test(this.customer.feedBack.productRating)) {
+                alert('Product rating sholud betweeen 0-9!');
+            }
+            // Delivery rating
+            if (!this.customer.feedBack.deliveryRating) {
+                // console.log(this.feedback.deliveryRating);
+                alert('DeliveryRating is filed is required');
+            }
+            if (!this.regex.test(this.customer.feedBack.deliveryRating)) {
+                alert('DeliveryRating sholud betweeen 0-9!');
+            }
+            //Size
+            if (!this.customer.feedBack.size) {
+                // console.log(this.feedback.productRating);
+                alert('Size is filed is required');
+            }
+            // Contact us
+            if (!this.customer.feedBack.contactUs) {
+                // console.log(this.feedback.productRating);
+                alert('contact us is filed is required');
+            }
+            // Recommond
+            if (!this.customer.feedBack.recommond) {
+                // console.log(this.feedback.productRating);
+                alert('Recommond is filed is required');
+            }
+        };
     }
     render() {
         return html `
       <h1>${this.head}</h1>
       <div class="container">
         <vaadin-vertical-layout>
-          <h2> ${this.title} </h2>
- 
-          <label> quality of the product ?</h4>
+          <h2>${this.title}</h2>
+
+          <label>
+            <h4>How do you rate the quality of the product ?</h4>
           </label>
           <vaadin-number-field
             name="productRating"
-            value=${this.feedback.productRating}
-            @change=${this.handleChange}
+            value=${this.customer.feedBack.productRating}
+            @change=${this.handlefbChange}
             required
             error-message="This field is required"
           >
@@ -69,8 +112,8 @@ let CustomerFeedbacks = class CustomerFeedbacks extends LitElement {
           </label>
           <vaadin-number-field
             name="deliveryRating"
-            value=${this.feedback.deliveryRating}
-            @value-changed=${this.handleChange}
+            value=${this.customer.feedBack.deliveryRating}
+            @change=${this.handlefbChange}
             required
             error-message="This field is required"
           >
@@ -79,7 +122,12 @@ let CustomerFeedbacks = class CustomerFeedbacks extends LitElement {
           <label>
             <h4>How do you find the sizing of the product ?</h4>
           </label>
-          <vaadin-radio-group @change=${this.handleChange} theme="vertical">
+          <vaadin-radio-group
+            theme="vertical"
+            @value-changed=${(e) => {
+            this.handleSize(e, 'size');
+        }}
+          >
             <vaadin-radio-button
               value="Too small"
               label="Too small"
@@ -101,18 +149,21 @@ let CustomerFeedbacks = class CustomerFeedbacks extends LitElement {
           <label>
             <h4>Would you like to contact us for different sizing?</h4>
           </label>
-          <vaadin-radio-group @click=${this.handleChange}>
+          <vaadin-radio-group
+            @value-changed=${(e) => {
+            this.handleContact(e, 'contactUs');
+        }}
+          >
             <vaadin-radio-button
+              theme="vertical"
               value="Yes"
               label="Yes"
               name="contactUs"
-              @click=${this.handleChange}
             ></vaadin-radio-button>
             <vaadin-radio-button
               value="No"
               label="No"
               name="contactUs"
-              @click=${this.handleChange}
             ></vaadin-radio-button>
           </vaadin-radio-group>
 
@@ -120,18 +171,18 @@ let CustomerFeedbacks = class CustomerFeedbacks extends LitElement {
             <h4>Would you recommond our product to others ?</h4>
           </label>
           <vaadin-select
+            placeholder="select"
             .items="${this.items}"
-            .value="${this.items[0].value}"
             name="recommond"
-            @value-changed=${this.handleChange}
+            @value-changed=${this.handlefbChange}
           ></vaadin-select>
 
           <label>
-            <h4>Would you  like to give any other feedback to us ?</h4>
+            <h4>Would you like to give any other feedback to us ?</h4>
           </label>
           <vaadin-text-area
             name="otherFeedabck"
-            @change=${this.handleChange}
+            @change=${this.handlefbChange}
           ></vaadin-text-area>
 
           <vaadin-horizontal-layout theme="spacing">
@@ -154,20 +205,44 @@ let CustomerFeedbacks = class CustomerFeedbacks extends LitElement {
         const { name, value } = e.target;
         this.feedback = { ...this.feedback, [name]: value };
     }
+    handleSize(e, _key) {
+        // this.feedback.size = e.target.value;
+        this.customer.feedBack.size = e.target.value;
+        // console.log((this.feedback.size = e.target.value));
+    }
+    handleContact(e, _key) {
+        // this.feedback.contactUs = e.target.value;
+        this.customer.feedBack.contactUs = e.target.value;
+        // console.log((this.feedback.contactUs = e.target.value));
+    }
+    handlefbChange(e) {
+        const { name, value } = e.target;
+        this.customer.feedBack = { ...this.customer.feedBack, [name]: value };
+        // console.log(this.customer.feedBack);
+    }
     fbformsubmit() {
-        console.log(JSON.stringify(this.feedback, null, 2));
-        this.fbdata.push({ ...this.feedback });
+        this.validatefb();
+        console.log('This is data :', JSON.stringify(this.customer, null, 2));
+        console.log(JSON.stringify(this.customer.feedBack, null, 2));
+        this.fbdata.push({ ...this.customer.feedBack });
         console.log(JSON.stringify(this.fbdata, null, 2));
-        localStorage.setItem('this.fbdata', JSON.stringify(this.fbdata, null, 2));
-        localStorage.setItem('this.feedback', JSON.stringify(this.feedback, null, 2));
+        if (this.fbdata) {
+            localStorage.setItem('this.fbdata', JSON.stringify(this.fbdata, null, 2));
+        }
+        // localStorage.setItem(
+        //   'this.feedback',
+        //   JSON.stringify(this.feedback, null, 2)
+        // );
     }
     getfbData() {
         let myfbdata = JSON.parse(localStorage.getItem('this.feedback') || '{}');
-        console.log(myfbdata.productRating, typeof myfbdata);
+        let myfbdatanew = JSON.parse(localStorage.getItem('this.customer.feedBack') || '{}');
+        // console.log(myfbdata.productRating, typeof myfbdata);
         console.log(myfbdata, typeof myfbdata);
+        console.log(myfbdatanew, typeof myfbdatanew);
     }
 };
-CustomerFeedbacks.styles = css `
+FeedbackCustomer.styles = css `
     h1 {
       text-align: center;
     }
@@ -183,17 +258,12 @@ CustomerFeedbacks.styles = css `
   `;
 __decorate([
     property()
-], CustomerFeedbacks.prototype, "title", void 0);
+], FeedbackCustomer.prototype, "title", void 0);
 __decorate([
     state()
-], CustomerFeedbacks.prototype, "items", void 0);
-CustomerFeedbacks = __decorate([
-    customElement('customer-feedback1')
-], CustomerFeedbacks);
-export { CustomerFeedbacks };
-// declare global {
-//   interface HTMLElementTagNameMap {
-//     'customer-feedback1': CustomerFeedbacks;
-//   }
-// }
+], FeedbackCustomer.prototype, "items", void 0);
+FeedbackCustomer = __decorate([
+    customElement('feeadback-customer1')
+], FeedbackCustomer);
+export { FeedbackCustomer };
 //# sourceMappingURL=customer-feedback1.js.map

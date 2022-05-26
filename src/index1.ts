@@ -20,7 +20,8 @@ function initRouter() {
       path: '/customer',
       component: 'customer-details',
     },
-    {path: '/feedback', component: 'feeadback-customer'},
+    // {path: '/feedback', component: 'feeadback-customer'},
+    {path: '/feedback1', component: 'feeadback-customer1'},
     {path: '(.*)', component: 'not-found'},
   ]);
 }
