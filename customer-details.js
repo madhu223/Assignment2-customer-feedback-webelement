@@ -272,10 +272,10 @@ let CustomerDetails = class CustomerDetails extends LitElement {
           ></vaadin-number-field>
           <!-- <vaadin-checkbox 
             label='Feedback'
-            name='Feedback'
+            name='feedBack'
             
-            .value=${this.customer}
-              @checked-changed=${this.handleChange}
+            value=  ${this.customer}
+             @value-changed =${this.handleChange}
           >
 
           </vaadin-checkbox> -->
@@ -284,7 +284,7 @@ let CustomerDetails = class CustomerDetails extends LitElement {
             <h4>How do you rate the quality of the product ?</h4>
           </label>
           <vaadin-number-field
-            name="ProductRating"
+            name="productRating"
             value=${this.customer}
             @change=${this.handleChange}
             required
@@ -295,9 +295,9 @@ let CustomerDetails = class CustomerDetails extends LitElement {
             <h4>Would you give any other feedback to us ?</h4>
           </label>
           <vaadin-text-area
-            name="OtherFeedabck"
+            name="otherFeedabck"
             @change=${this.handleChange}
-          ></vaadin-text-area> -->
+          ></vaadin-text-area>  -->
 
         <!-- <vaadin-button theme="primary">Submit</vaadin-button> -->
 
@@ -379,7 +379,7 @@ let CustomerDetails = class CustomerDetails extends LitElement {
         //   phoneNumber: '',
         //   email: '',
         //   dob: '',
-        //   Gender: '',
+        //   gender: '',
         //   city: '',
         //   state: '',
         //   country: '',

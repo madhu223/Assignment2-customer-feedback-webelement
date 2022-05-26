@@ -9,5 +9,13 @@ export declare class Customer {
     state: '';
     country: '';
     postalCode: '';
+    feedBack: {
+        productRating: '';
+        deliveryRating: '';
+        size: '';
+        contactUs: '';
+        recommond: '';
+        otherFeedabck: '';
+    };
 }
 //# sourceMappingURL=customer.d.ts.map

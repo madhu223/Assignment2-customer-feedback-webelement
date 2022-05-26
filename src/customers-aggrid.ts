@@ -1,10 +1,12 @@
 import {html, LitElement} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 // import {Grid, GridOptions} from '@ag-grid-community/core';
-// import {Grid} from '@ag-grid-community';
+// import {Grid} from 'ag-grid-community';
 // import '../node_modules/ag-grid-community/dist/ag-grid-community';
-// import 'ag-grid-webcomponent/src/agGrid';
-// import 'ag-grid-community/dist/ag-grid-community';
+import '/ag-grid-webcomponent/src/agGrid';
+import 'ag-grid-community/dist/ag-grid-community';
+import '../node_modules/ag-grid-community//main';
+import '../node_modules/ag-grid-webcomponent/src';
 
 @customElement('customers-aggrid')
 export class CustomersAggrid extends LitElement {

@@ -139,7 +139,7 @@ export class CustomerFeedbacks extends LitElement {
           ></vaadin-select>
 
           <label>
-            <h4>Would you give any other feedback to us ?</h4>
+            <h4>Would you  like to give any other feedback to us ?</h4>
           </label>
           <vaadin-text-area
             name="otherFeedabck"

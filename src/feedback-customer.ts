@@ -25,6 +25,7 @@ import {Feedback} from './feedback';
 export class FeedbackCustomer extends LitElement {
   feedback: Feedback = new Feedback();
   fbdata = [{}];
+  regex = /^[0-9]$/;
   static override styles = css`
     h1 {
       text-align: center;
@@ -44,10 +45,10 @@ export class FeedbackCustomer extends LitElement {
   override title = ' Tell us how do you think..!';
   @state()
   private items = [
-    {
-      label: 'select',
-      value: 'select',
-    },
+    // {
+    //   label: 'select',
+    //   value: 'select',
+    // },
     {
       label: 'May be',
       value: 'May be',
@@ -71,7 +72,7 @@ export class FeedbackCustomer extends LitElement {
           <vaadin-number-field
             name="productRating"
             value=${this.feedback.productRating}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           >
@@ -141,14 +142,14 @@ export class FeedbackCustomer extends LitElement {
             <h4>Would you recommond our product to others ?</h4>
           </label>
           <vaadin-select
+            placeholder="select"
             .items="${this.items}"
-            .value="${this.items[0].value}"
             name="recommond"
             @value-changed=${this.handleChange}
           ></vaadin-select>
 
           <label>
-            <h4>Would you give any other feedback to us ?</h4>
+            <h4>Would you like to give any other feedback to us ?</h4>
           </label>
           <vaadin-text-area
             name="otherFeedabck"
@@ -171,6 +172,47 @@ export class FeedbackCustomer extends LitElement {
       >
     `;
   }
+  // validation
+
+  validatefb = () => {
+    // Product Rating
+    if (!this.feedback.productRating) {
+      // console.log(this.feedback.productRating);
+      alert('productRating is filed is required');
+    }
+    // if (this.feedback.productRating < 10) {
+    //   console.log(this.feedback.productRating < 10);
+    //   alert('Product rating sholud betweeen 1-10');
+    // }
+    if (!this.regex.test(this.feedback.productRating.toString())) {
+      alert('Product rating sholud betweeen 0-9!');
+    }
+    // Delivery rating
+    if (!this.feedback.deliveryRating) {
+      // console.log(this.feedback.deliveryRating);
+      alert('DeliveryRating is filed is required');
+    }
+    if (!this.regex.test(this.feedback.deliveryRating.toString())) {
+      alert('DeliveryRating sholud betweeen 0-9!');
+    }
+
+    //Size
+    if (!this.feedback.size) {
+      // console.log(this.feedback.productRating);
+      alert('Size is filed is required');
+    }
+    // Contact us
+    if (!this.feedback.contactUs) {
+      // console.log(this.feedback.productRating);
+      alert('contact us is filed is required');
+    }
+
+    // Recommond
+    if (!this.feedback.recommond) {
+      // console.log(this.feedback.productRating);
+      alert('Recommond is filed is required');
+    }
+  };
 
   handleChange(e: {target: {name: any; value: any}}) {
     const {name, value} = e.target;
@@ -186,6 +228,7 @@ export class FeedbackCustomer extends LitElement {
   }
 
   fbformsubmit() {
+    this.validatefb();
     console.log(JSON.stringify(this.feedback, null, 2));
 
     this.fbdata.push({...this.feedback});

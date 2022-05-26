@@ -20,12 +20,12 @@ export class Customer {
   state!: '';
   country!: '';
   postalCode!: '';
-  // Feedback!: {
-  //   ProductRating: number;
-  //   DeliveryRating: number;
-  //   Size: number;
-  //   ContactUs: string;
-  //   Recommond: string;
-  //   OtherFeedabck: string;
-  // };
+  feedBack!: {
+    productRating: '';
+    deliveryRating: '';
+    size: '';
+    contactUs: '';
+    recommond: '';
+    otherFeedabck: '';
+  };
 }

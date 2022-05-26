@@ -18,11 +18,13 @@ import { Feedback } from './feedback';
 export declare class FeedbackCustomer extends LitElement {
     feedback: Feedback;
     fbdata: {}[];
+    regex: RegExp;
     static styles: import("lit").CSSResult;
     head: string;
     title: string;
     private items;
     protected render(): import("lit-html").TemplateResult<1>;
+    validatefb: () => void;
     handleChange(e: {
         target: {
             name: any;
