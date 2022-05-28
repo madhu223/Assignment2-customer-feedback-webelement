@@ -23,8 +23,11 @@ import {Feedback} from './feedback';
 
 @customElement('feeadback-customer')
 export class FeedbackCustomer extends LitElement {
+  @state()
   feedback: Feedback = new Feedback();
-  fbdata = [{}];
+
+  // private fbdata = [{}];
+  private fbdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
   regex = /^[0-9]$/;
   static override styles = css`
     h1 {
@@ -84,7 +87,7 @@ export class FeedbackCustomer extends LitElement {
           <vaadin-number-field
             name="deliveryRating"
             value=${this.feedback.deliveryRating}
-            @value-changed=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           >
@@ -95,6 +98,7 @@ export class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-radio-group
             theme="vertical"
+            value=${this.feedback.size}
             @value-changed=${(e: any) => {
               this.handleSize(e, 'size');
             }}
@@ -121,6 +125,8 @@ export class FeedbackCustomer extends LitElement {
             <h4>Would you like to contact us for different sizing?</h4>
           </label>
           <vaadin-radio-group
+            theme="vertical"
+            value=${this.feedback.contactUs}
             @value-changed=${(e: any) => {
               this.handleContact(e, 'contactUs');
             }}
@@ -145,6 +151,7 @@ export class FeedbackCustomer extends LitElement {
             placeholder="select"
             .items="${this.items}"
             name="recommond"
+            value=${this.feedback.recommond}
             @value-changed=${this.handleChange}
           ></vaadin-select>
 
@@ -153,6 +160,7 @@ export class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-text-area
             name="otherFeedabck"
+            value=${this.feedback.otherFeedabck}
             @change=${this.handleChange}
           ></vaadin-text-area>
 
@@ -241,6 +249,15 @@ export class FeedbackCustomer extends LitElement {
     //   'this.feedback',
     //   JSON.stringify(this.feedback, null, 2)
     // );
+
+    this.feedback = {
+      productRating: '',
+      deliveryRating: '',
+      size: '',
+      contactUs: '',
+      recommond: '',
+      otherFeedabck: '',
+    };
   }
   getfbData() {
     let myfbdata = JSON.parse(localStorage.getItem('this.feedback') || '{}');

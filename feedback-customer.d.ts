@@ -17,7 +17,7 @@ import '@vaadin/text-area';
 import { Feedback } from './feedback';
 export declare class FeedbackCustomer extends LitElement {
     feedback: Feedback;
-    fbdata: {}[];
+    private fbdata;
     regex: RegExp;
     static styles: import("lit").CSSResult;
     head: string;

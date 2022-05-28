@@ -1,9 +1,9 @@
 export declare class Feedback {
-    productRating: number;
-    deliveryRating: number;
-    size: number;
-    contactUs: string;
-    recommond: string;
-    otherFeedabck: string;
+    productRating: '';
+    deliveryRating: '';
+    size: '';
+    contactUs: '';
+    recommond: '';
+    otherFeedabck: '';
 }
 //# sourceMappingURL=feedback.d.ts.map

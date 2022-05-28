@@ -1,5 +1,5 @@
 import {css, html, LitElement} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import {customElement, property, state} from 'lit/decorators.js';
 import './customer';
 // import '@vaadin/vaadin-text-field';
 // import '@vaadin/vaadin-button';
@@ -27,8 +27,11 @@ import '@vaadin/text-area';
 
 @customElement('customer-details')
 export class CustomerDetails extends LitElement {
+  @state()
   customer: Customer = new Customer();
-  fomdata = [{}];
+
+  // private fomdata = [{}];
+  private fomdata = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
   regex = /^[A-Za-z0-9\-]+$/;
   emailRegex =
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -178,7 +181,7 @@ export class CustomerDetails extends LitElement {
             label='Feedback'
             name='feedBack'
             
-            value=  ${this.customer.feedBack}
+            value=  ${this.customer}
             @click =${this.handleChange}
           >
 
@@ -189,7 +192,7 @@ export class CustomerDetails extends LitElement {
           </label>
           <vaadin-number-field
             name="productRating"
-            value=${this.customer.feedBack.productRating}
+            value=${this.customer}
             @change=${this.handleChange}
             required
             error-message="This field is required"
@@ -200,7 +203,7 @@ export class CustomerDetails extends LitElement {
           </label>
           <vaadin-text-area
             name="otherFeedabck"
-            value=${this.customer.feedBack.otherFeedabck}
+            value=${this.customer}
             @change=${this.handleChange}
           ></vaadin-text-area>  -->
 
@@ -220,21 +223,21 @@ export class CustomerDetails extends LitElement {
           </vaadin-button>
           <vaadin-button theme="primary"
           >
-          <a href="/feedback1" style="color:white;text-decoration:none; width:30px"
+          <a href="/feedback" style="color:white;text-decoration:none; width:30px"
           >Feedback </a>
           </vaadin-button>
         </vaadin-horizontal-layout>
-      </vaadin-vertical-layout>
+      </vaadin-vertical-layou
       </vaadin-form-layout>
       
       <slot></slot>
       </div>
 
-     
+<!--      
       <vaadin-button theme="primary" 
           @click ="${this.getData}"
           >
-        get data</vaadin-button>
+        get data</vaadin-button> -->
      
       
     `;
@@ -372,7 +375,9 @@ export class CustomerDetails extends LitElement {
     // console.log(typeof this.customer);
     // this.customer = this.customer;
 
+    // this.fomdata.push({ ...this.customer });
     this.fomdata.push({...this.customer});
+
     console.log(JSON.stringify(this.fomdata, null, 2));
 
     localStorage.setItem('this.fomdata', JSON.stringify(this.fomdata, null, 2));
@@ -398,19 +403,27 @@ export class CustomerDetails extends LitElement {
     // state: '',
     // country: '',
     // postalCode: '',
-    // this.customer = {
-    //   firstName: '',
-    //   lastName: '',
-    //   phoneNumber: '',
-    //   email: '',
-    //   dob: '',
-    //   gender: '',
+    this.customer = {
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      email: '',
+      dob: '',
+      gender: '',
 
-    //   city: '',
-    //   state: '',
-    //   country: '',
-    //   postalCode: '',
-    // };
+      city: '',
+      state: '',
+      country: '',
+      postalCode: '',
+      // feedBack : {
+      //   productRating: '',
+      //   deliveryRating: '',
+      //   size: '',
+      //   contactUs: '',
+      //   recommond: '',
+      //   otherFeedabck: '',
+      // },
+    };
   }
   getData() {
     // let data = {...this.customer};

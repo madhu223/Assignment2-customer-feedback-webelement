@@ -16,7 +16,7 @@ import { Customer } from './customer';
 import '@vaadin/text-area';
 export declare class CustomerDetails extends LitElement {
     customer: Customer;
-    fomdata: {}[];
+    private fomdata;
     regex: RegExp;
     emailRegex: RegExp;
     static styles: import("lit").CSSResult;

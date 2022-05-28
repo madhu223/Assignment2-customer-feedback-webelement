@@ -9,9 +9,7 @@ import '@vaadin/radio-group';
 import './customers-aggrid';
 export declare class CustomerDashboard extends LitElement {
     data: any;
-    data1: any;
     fdata: any;
-    fdata1: any;
     fulldata: {}[];
     title: string;
     protected render(): import("lit-html").TemplateResult<1>;

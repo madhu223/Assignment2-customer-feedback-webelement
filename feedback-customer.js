@@ -29,7 +29,8 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
     constructor() {
         super(...arguments);
         this.feedback = new Feedback();
-        this.fbdata = [{}];
+        // private fbdata = [{}];
+        this.fbdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
         this.regex = /^[0-9]$/;
         this.head = 'Customer Feedback';
         this.title = ' Tell us how do you think..!';
@@ -111,7 +112,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
           <vaadin-number-field
             name="deliveryRating"
             value=${this.feedback.deliveryRating}
-            @value-changed=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           >
@@ -122,6 +123,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-radio-group
             theme="vertical"
+            value=${this.feedback.size}
             @value-changed=${(e) => {
             this.handleSize(e, 'size');
         }}
@@ -148,6 +150,8 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
             <h4>Would you like to contact us for different sizing?</h4>
           </label>
           <vaadin-radio-group
+            theme="vertical"
+            value=${this.feedback.contactUs}
             @value-changed=${(e) => {
             this.handleContact(e, 'contactUs');
         }}
@@ -172,6 +176,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
             placeholder="select"
             .items="${this.items}"
             name="recommond"
+            value=${this.feedback.recommond}
             @value-changed=${this.handleChange}
           ></vaadin-select>
 
@@ -180,6 +185,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-text-area
             name="otherFeedabck"
+            value=${this.feedback.otherFeedabck}
             @change=${this.handleChange}
           ></vaadin-text-area>
 
@@ -223,6 +229,14 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
         //   'this.feedback',
         //   JSON.stringify(this.feedback, null, 2)
         // );
+        this.feedback = {
+            productRating: '',
+            deliveryRating: '',
+            size: '',
+            contactUs: '',
+            recommond: '',
+            otherFeedabck: '',
+        };
     }
     getfbData() {
         let myfbdata = JSON.parse(localStorage.getItem('this.feedback') || '{}');
@@ -244,6 +258,9 @@ FeedbackCustomer.styles = css `
       justify-content: center;
     }
   `;
+__decorate([
+    state()
+], FeedbackCustomer.prototype, "feedback", void 0);
 __decorate([
     property()
 ], FeedbackCustomer.prototype, "title", void 0);

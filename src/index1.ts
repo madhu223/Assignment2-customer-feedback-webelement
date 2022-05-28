@@ -21,7 +21,7 @@ function initRouter() {
       component: 'customer-details',
     },
     // {path: '/feedback', component: 'feeadback-customer'},
-    {path: '/feedback1', component: 'feeadback-customer1'},
+    {path: '/feedback', component: 'feeadback-customer'},
     {path: '(.*)', component: 'not-found'},
   ]);
 }

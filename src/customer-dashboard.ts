@@ -17,11 +17,11 @@ import './customers-aggrid';
 
 @customElement('customer-dashboard')
 export class CustomerDashboard extends LitElement {
-  data = JSON.parse(localStorage.getItem('this.fomdata') || '{}');
-  data1 = this.data.shift();
+  data = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
+  // data1 = this.data.shift();
 
-  fdata = JSON.parse(localStorage.getItem('this.fbdata') || '{}');
-  fdata1 = this.fdata.shift();
+  fdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
+  // fdata1 = this.fdata.shift();
   fulldata = [{}];
   @property()
   override title = 'Customer Dashboard';
@@ -61,7 +61,7 @@ export class CustomerDashboard extends LitElement {
         >
       </vaadin-button>
 
-      <!-- <vaadin-grid .items="${this.data1}">
+      <!-- <vaadin-grid .items="${this.data}">
         <vaadin-grid-column path="firstName"></vaadin-grid-column>
         <vaadin-grid-column path="lastName"></vaadin-grid-column>
         <vaadin-grid-column path="email"></vaadin-grid-column>
@@ -113,7 +113,8 @@ export class CustomerDashboard extends LitElement {
         </vaadin-radio-group>
 
       </vaadin-radio-group> -->
-      <vaadin-button @click=${this.fetchData}> Fetch Data </vaadin-button>
+      <!-- <vaadin-button @click=${this
+        .fetchData}> Fetch Data </vaadin-button> -->
       <!-- Ag-grid -->
       <!-- <customers-aggrid></customers-aggrid> -->
       <!--  -->

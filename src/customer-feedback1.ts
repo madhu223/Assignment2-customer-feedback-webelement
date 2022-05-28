@@ -20,13 +20,16 @@ import '@vaadin/list-box';
 import '@vaadin/select';
 import '@vaadin/text-area';
 import {Feedback} from './feedback';
-import {Customer} from './customer';
+// import {Customer} from './customer';
+import {CustomerData} from './customerdata';
 
 @customElement('feeadback-customer1')
 export class FeedbackCustomer extends LitElement {
   feedback: Feedback = new Feedback();
-  customer: Customer = new Customer();
-  fbdata = [{}];
+  // customer: Customer = new Customer();
+  @state()
+  customer: CustomerData = new CustomerData();
+  private fbdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
   regex = /^[0-9]$/;
   static override styles = css`
     h1 {
@@ -97,6 +100,7 @@ export class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-radio-group
             theme="vertical"
+            value=${this.customer.feedBack.size}
             @value-changed=${(e: any) => {
               this.handleSize(e, 'size');
             }}
@@ -123,6 +127,8 @@ export class FeedbackCustomer extends LitElement {
             <h4>Would you like to contact us for different sizing?</h4>
           </label>
           <vaadin-radio-group
+            theme="vertical"
+            value=${this.customer.feedBack.contactUs}
             @value-changed=${(e: any) => {
               this.handleContact(e, 'contactUs');
             }}
@@ -147,6 +153,7 @@ export class FeedbackCustomer extends LitElement {
             placeholder="select"
             .items="${this.items}"
             name="recommond"
+            value=${this.customer.feedBack.recommond}
             @value-changed=${this.handlefbChange}
           ></vaadin-select>
 
@@ -155,6 +162,7 @@ export class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-text-area
             name="otherFeedabck"
+            value=${this.customer.feedBack.otherFeedabck}
             @change=${this.handlefbChange}
           ></vaadin-text-area>
 
@@ -252,6 +260,27 @@ export class FeedbackCustomer extends LitElement {
     //   'this.feedback',
     //   JSON.stringify(this.feedback, null, 2)
     // );
+    this.customer = {
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      email: '',
+      dob: '',
+      gender: '',
+
+      city: '',
+      state: '',
+      country: '',
+      postalCode: '',
+      feedBack: {
+        productRating: '',
+        deliveryRating: '',
+        size: '',
+        contactUs: '',
+        recommond: '',
+        otherFeedabck: '',
+      },
+    };
   }
   getfbData() {
     let myfbdata = JSON.parse(localStorage.getItem('this.feedback') || '{}');

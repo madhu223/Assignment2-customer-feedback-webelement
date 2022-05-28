@@ -1,4 +1,4 @@
-export class Customer {
+export class CustomerData {
   // FirstName!: string;
   // LastName!: string;
   // PhoneNumber!: number;
@@ -20,12 +20,12 @@ export class Customer {
   state!: '';
   country!: '';
   postalCode!: '';
-  // feedBack = {
-  //   productRating: '',
-  //   deliveryRating: '',
-  //   size: '',
-  //   contactUs: '',
-  //   recommond: '',
-  //   otherFeedabck: '',
-  // };
+  feedBack = {
+    productRating: '',
+    deliveryRating: '',
+    size: '',
+    contactUs: '',
+    recommond: '',
+    otherFeedabck: '',
+  };
 }

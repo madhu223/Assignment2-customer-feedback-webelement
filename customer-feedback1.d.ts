@@ -15,11 +15,11 @@ import '@vaadin/list-box';
 import '@vaadin/select';
 import '@vaadin/text-area';
 import { Feedback } from './feedback';
-import { Customer } from './customer';
+import { CustomerData } from './customerdata';
 export declare class FeedbackCustomer extends LitElement {
     feedback: Feedback;
-    customer: Customer;
-    fbdata: {}[];
+    customer: CustomerData;
+    private fbdata;
     regex: RegExp;
     static styles: import("lit").CSSResult;
     head: string;
