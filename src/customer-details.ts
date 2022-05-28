@@ -227,7 +227,7 @@ export class CustomerDetails extends LitElement {
           >Feedback </a>
           </vaadin-button>
         </vaadin-horizontal-layout>
-      </vaadin-vertical-layou
+      </vaadin-vertical-layout>
       </vaadin-form-layout>
       
       <slot></slot>
