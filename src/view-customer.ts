@@ -49,7 +49,7 @@ export class ViewCustomer extends LitElement {
           @input=${this.handleview}
         ></vaadin-number-field>
         <!-- <vaadin-button @click=${this}>click</vaadin-button> -->
-
+        <p><b>Customer Details</b> :</p>
         <p>CustomerId : <b> ${this.data[this.Id].customerId} </b></p>
         <p>FirstName : <b> ${this.data[this.Id].firstName} </b></p>
         <p>LastName : <b> ${this.data[this.Id].lastName} </b></p>
