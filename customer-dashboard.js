@@ -16,6 +16,9 @@ import './feedback-customer';
 import '@vaadin/grid/vaadin-grid-selection-column.js';
 import '@vaadin/radio-group';
 import './customers-aggrid';
+import './customer-details1';
+import './view-customer';
+// import '@vaadin/dialog';
 // import 'ag-grid-community/dist/styles/ag-grid.css';
 // import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 // import { Grid } from 'ag-grid-community';
@@ -54,6 +57,7 @@ let CustomerDashboard = class CustomerDashboard extends LitElement {
     //   },
     // ];
     render() {
+        // console.log(this.data[0].customerId, this.data[0].feedBack);
         return html `
       <h2>${this.title}</h2>
       <!-- <a href="/customer">Add Customer</a> -->
@@ -72,25 +76,32 @@ let CustomerDashboard = class CustomerDashboard extends LitElement {
       </vaadin-grid> -->
       <vaadin-split-layout>
         <div>
-          <vaadin-grid .items="${this.data}">
+          <vaadin-grid .items="${this.data}" style="width:600px">
             <!-- <vaadin-grid-selection-column></vaadin-grid-selection-column> -->
+            <vaadin-grid-column path="customerId"> </vaadin-grid-column>
             <vaadin-grid-column path="firstName"> </vaadin-grid-column>
             <vaadin-grid-column path="lastName"></vaadin-grid-column>
             <vaadin-grid-column path="email"></vaadin-grid-column>
             <vaadin-grid-column path="gender"></vaadin-grid-column>
           </vaadin-grid>
         </div>
-
-        <div>
-          <vaadin-grid .items="${this.fdata}">
-            <vaadin-grid-column path="productRating"></vaadin-grid-column>
-            <vaadin-grid-column path="deliveryRating"></vaadin-grid-column>
-            <vaadin-grid-column path="recommond"></vaadin-grid-column>
-            <vaadin-grid-column path="otherFeedabck"></vaadin-grid-column>
-            <!-- <vaadin-grid-column path="ContactUs"></vaadin-grid-column> -->
-          </vaadin-grid>
-        </div>
+        <view-customer></view-customer>
       </vaadin-split-layout>
+
+      <!--  -->
+      <div>
+        <vaadin-grid .items="${this.fdata}" style="width:600px">
+          <!-- <vaadin-grid-column path="fbcustomerId"> </vaadin-grid-column> -->
+          <vaadin-grid-column path="productRating"></vaadin-grid-column>
+          <vaadin-grid-column path="deliveryRating"></vaadin-grid-column>
+          <vaadin-grid-column path="recommond"></vaadin-grid-column>
+          <vaadin-grid-column path="otherFeedabck"></vaadin-grid-column>
+          <!-- <vaadin-grid-column path="contactUs"></vaadin-grid-column> -->
+        </vaadin-grid>
+      </div>
+
+      <!--  -->
+
       <!-- <vaadin-split-layout style="max-height: 90vh;">
         <customer-details> </customer-details>
         <customer-feedback></customer-feedback>
@@ -121,6 +132,8 @@ let CustomerDashboard = class CustomerDashboard extends LitElement {
       <!-- Ag-grid -->
       <!-- <customers-aggrid></customers-aggrid> -->
       <!--  -->
+      <!-- <feeadback-customer1></feeadback-customer1> -->
+      <!-- <customer-details1></customer-details1> -->
     `;
     }
     // handleCustomer() {

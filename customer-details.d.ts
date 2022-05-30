@@ -16,7 +16,10 @@ import { Customer } from './customer';
 import '@vaadin/text-area';
 export declare class CustomerDetails extends LitElement {
     customer: Customer;
-    private fomdata;
+    private maxCustomerId;
+    constructor();
+    fomdata: any;
+    private customerData;
     regex: RegExp;
     emailRegex: RegExp;
     static styles: import("lit").CSSResult;
@@ -31,7 +34,7 @@ export declare class CustomerDetails extends LitElement {
         };
     }): void;
     handleGender(e: any, _key: any): void;
-    validate: () => void;
+    validate: () => string;
     formsubmit(): void;
     getData(): void;
 }

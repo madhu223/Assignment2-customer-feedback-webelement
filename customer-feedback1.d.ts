@@ -14,12 +14,11 @@ import '@vaadin/vertical-layout';
 import '@vaadin/list-box';
 import '@vaadin/select';
 import '@vaadin/text-area';
-import { Feedback } from './feedback';
 import { CustomerData } from './customerdata';
-export declare class FeedbackCustomer extends LitElement {
-    feedback: Feedback;
+export declare class FeedbackCustomer1 extends LitElement {
     customer: CustomerData;
-    private fbdata;
+    fbdata: any;
+    fomdata: any;
     regex: RegExp;
     static styles: import("lit").CSSResult;
     head: string;
@@ -27,12 +26,6 @@ export declare class FeedbackCustomer extends LitElement {
     private items;
     protected render(): import("lit-html").TemplateResult<1>;
     validatefb: () => void;
-    handleChange(e: {
-        target: {
-            name: any;
-            value: any;
-        };
-    }): void;
     handleSize(e: any, _key: any): void;
     handleContact(e: any, _key: any): void;
     handlefbChange(e: {

@@ -24,16 +24,18 @@ import '@vaadin/vertical-layout';
 import '@vaadin/list-box';
 import '@vaadin/select';
 import '@vaadin/text-area';
-import { Feedback } from './feedback';
+// import {Feedback} from './feedback';
 // import {Customer} from './customer';
 import { CustomerData } from './customerdata';
-let FeedbackCustomer = class FeedbackCustomer extends LitElement {
+let FeedbackCustomer1 = class FeedbackCustomer1 extends LitElement {
     constructor() {
         super(...arguments);
-        this.feedback = new Feedback();
+        // feedback: Feedback = new Feedback();
+        // customer: Customer = new Customer();
         // customer: Customer = new Customer();
         this.customer = new CustomerData();
         this.fbdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
+        this.fomdata = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
         this.regex = /^[0-9]$/;
         this.head = 'Customer Feedback';
         this.title = ' Tell us how do you think..!';
@@ -204,14 +206,13 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
           get data</vaadin-button
         >
       </div>
-
       >
     `;
     }
-    handleChange(e) {
-        const { name, value } = e.target;
-        this.feedback = { ...this.feedback, [name]: value };
-    }
+    // handleChange(e: {target: {name: any; value: any}}) {
+    //   const {name, value} = e.target;
+    //   this.feedback = {...this.feedback, [name]: value};
+    // }
     handleSize(e, _key) {
         // this.feedback.size = e.target.value;
         this.customer.feedBack.size = e.target.value;
@@ -232,9 +233,11 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
         console.log('This is data :', JSON.stringify(this.customer, null, 2));
         console.log(JSON.stringify(this.customer.feedBack, null, 2));
         this.fbdata.push({ ...this.customer.feedBack });
+        this.fomdata.push({ ...this.customer.feedBack });
         console.log(JSON.stringify(this.fbdata, null, 2));
         if (this.fbdata) {
             localStorage.setItem('this.fbdata', JSON.stringify(this.fbdata, null, 2));
+            localStorage.setItem('this.fomdata', JSON.stringify(this.fomdata, null, 2));
         }
         // localStorage.setItem(
         //   'this.feedback',
@@ -269,7 +272,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
         console.log(myfbdatanew, typeof myfbdatanew);
     }
 };
-FeedbackCustomer.styles = css `
+FeedbackCustomer1.styles = css `
     h1 {
       text-align: center;
     }
@@ -285,15 +288,15 @@ FeedbackCustomer.styles = css `
   `;
 __decorate([
     state()
-], FeedbackCustomer.prototype, "customer", void 0);
+], FeedbackCustomer1.prototype, "customer", void 0);
 __decorate([
     property()
-], FeedbackCustomer.prototype, "title", void 0);
+], FeedbackCustomer1.prototype, "title", void 0);
 __decorate([
     state()
-], FeedbackCustomer.prototype, "items", void 0);
-FeedbackCustomer = __decorate([
+], FeedbackCustomer1.prototype, "items", void 0);
+FeedbackCustomer1 = __decorate([
     customElement('feeadback-customer1')
-], FeedbackCustomer);
-export { FeedbackCustomer };
+], FeedbackCustomer1);
+export { FeedbackCustomer1 };
 //# sourceMappingURL=customer-feedback1.js.map

@@ -30,10 +30,11 @@ import { Customer } from './customer';
 import '@vaadin/text-area';
 let CustomerDetails = class CustomerDetails extends LitElement {
     constructor() {
-        super(...arguments);
+        super();
         this.customer = new Customer();
         // private fomdata = [{}];
         this.fomdata = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
+        this.customerData = JSON.parse(localStorage.getItem('customerData') || '[]');
         this.regex = /^[A-Za-z0-9\-]+$/;
         this.emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         this.title = 'Customer Details';
@@ -49,116 +50,128 @@ let CustomerDetails = class CustomerDetails extends LitElement {
         //   console.log(this.customer.feedBack);
         // }
         this.validate = () => {
-            // First Name
-            if (this.customer.firstName === null) {
+            let errorMessage = '';
+            if (this.customer.firstName == null || this.customer.firstName == '') {
                 // console.log(this.customer.firstName.valueOf);
-                alert('First Name is filed is required');
+                errorMessage = 'First Name is filed is required';
             }
-            if (this.customer.firstName.length < 3) {
-                alert('First Name sholud containe min 3 letters');
+            else if (this.customer.firstName.length < 3) {
+                errorMessage = 'First Name sholud containe min 3 letters';
             }
-            if (!this.regex.test(this.customer.firstName)) {
-                alert('First Name should contain only alphanumeric and no space!');
+            else if (!this.regex.test(this.customer.firstName)) {
+                errorMessage =
+                    'First Name should contain only alphanumeric and no space!';
             }
             // Lastst Name
-            if (this.customer.lastName === null) {
+            if (this.customer.lastName == null || this.customer.lastName == '') {
                 // console.log(this.customer.lastName.valueOf);
-                alert('Last Name is filed is required');
+                errorMessage = errorMessage + '\n' + 'Last Name is filed is required';
             }
-            if (this.customer.lastName.length < 1) {
-                alert('Last Name sholud containe min 1 letters');
-            }
-            if (!this.regex.test(this.customer.lastName)) {
-                alert('Last Name should contain only alphanumeric and no space!');
+            else {
+                if (this.customer.lastName.length < 1) {
+                    errorMessage =
+                        errorMessage + '\n' + 'Last Name sholud containe min 1 letters';
+                }
+                if (!this.regex.test(this.customer.lastName)) {
+                    errorMessage =
+                        errorMessage +
+                            '\n' +
+                            'Last Name should contain only alphanumeric and no space!';
+                }
             }
             // email
-            if (this.customer.email === null) {
+            if (this.customer.email == null) {
                 // console.log(this.customer.email.valueOf);
-                alert('email is filed is required');
+                errorMessage = errorMessage + '\n' + 'Email is filed is required';
             }
-            if (!this.emailRegex.test(this.customer.email)) {
-                alert('Invalid email format !');
-            }
-            if (this.customer.email.length < 3) {
-                alert('email sholud containe min 3 letters');
+            else {
+                if (!this.emailRegex.test(this.customer.email)) {
+                    errorMessage = errorMessage + '\n' + 'Invalid email format';
+                }
+                if (this.customer.email.length < 3) {
+                    errorMessage =
+                        errorMessage + '\n' + 'Email sholud containe min 3 letters';
+                }
             }
             // Phone Number
             if (!this.customer.phoneNumber) {
                 // console.log(this.customer.phoneNumber..valueOf);
-                alert('phoneNumber. is filed is required');
+                errorMessage = errorMessage + '\n' + 'PhoneNumber. is filed is required';
             }
-            if (this.customer.phoneNumber.length < 5) {
-                alert('phoneNumber sholud containe min 5 numbers');
+            else if (this.customer.phoneNumber.length < 5) {
+                errorMessage =
+                    errorMessage + '\n' + 'PhoneNumber sholud containe min 5 numbers';
             }
             // DOb
             if (!this.customer.dob) {
                 // console.log(this.customer.phoneNumber..valueOf);
-                alert('DOb is filed is required');
+                errorMessage = errorMessage + '\n' + 'DOb is filed is required';
             }
             // Gender
             if (this.customer.gender === null) {
                 // console.log(this.customer.phoneNumber..valueOf);
-                alert('Gender is filed is required');
+                errorMessage = errorMessage + '\n' + 'Gender is filed is required';
             }
             //city
             if (!this.customer.city) {
                 // console.log(this.customer.city.valueOf);
-                alert('city is filed is required');
+                errorMessage = errorMessage + '\n' + 'City is filed is required';
             }
-            if (this.customer.city.length < 3) {
-                alert('city sholud containe min 3 letters');
+            else if (this.customer.city.length < 3) {
+                errorMessage = errorMessage + '\n' + 'City sholud containe min 3 letters';
             }
-            if (!this.regex.test(this.customer.city)) {
-                alert('city should contain only alphanumeric and no space!');
+            else if (!this.regex.test(this.customer.city)) {
+                errorMessage =
+                    errorMessage +
+                        '\n' +
+                        'City should contain only alphanumeric and no space!';
             }
             //state
             if (!this.customer.state) {
                 // console.log(this.customer.state.valueOf);
-                alert('state is filed is required');
+                errorMessage = errorMessage + '\n' + 'State is filed is required';
             }
-            if (this.customer.state.length < 3) {
-                alert('state sholud containe min 3 letters');
+            else if (this.customer.state.length < 3) {
+                errorMessage =
+                    errorMessage + '\n' + 'State sholud containe min 3 letters';
             }
-            if (!this.regex.test(this.customer.state)) {
-                alert('state should contain only alphanumeric and no space!');
+            else if (!this.regex.test(this.customer.state)) {
+                errorMessage =
+                    errorMessage +
+                        '\n' +
+                        'State should contain only alphanumeric and no space!';
             }
             //country
             if (!this.customer.country) {
                 // console.log(this.customer.country.valueOf);
-                alert('country is filed is required');
+                errorMessage = errorMessage + '\n' + 'Country is filed is required';
             }
-            if (this.customer.country.length < 3) {
-                alert('country sholud containe min 3 letters');
+            else if (this.customer.country.length < 3) {
+                errorMessage =
+                    errorMessage + '\n' + 'Country sholud containe min 3 letters';
             }
-            if (!this.regex.test(this.customer.country)) {
-                alert('country should contain only alphanumeric and no space!');
+            else if (!this.regex.test(this.customer.country)) {
+                errorMessage =
+                    errorMessage +
+                        '\n' +
+                        'Country should contain only alphanumeric and no space!';
             }
             // postalCode
-            if (this.customer.postalCode === null) {
+            if (this.customer.postalCode == null) {
                 // console.log(this.customer.postalCode..valueOf);
-                alert('postalCode. is filed is required');
+                errorMessage = errorMessage + '\n' + 'PostalCode is filed is required';
             }
-            if (this.customer.postalCode.length < 5) {
-                alert('postalCode sholud containe min 5 numbers');
+            else if (this.customer.postalCode.length < 5) {
+                errorMessage =
+                    errorMessage + '\n' + 'PostalCode sholud containe min 5 numbers';
             }
+            if (errorMessage != '') {
+                alert(errorMessage);
+            }
+            return errorMessage;
         };
-        // formcancel() {
-        //   this.customer = {
-        //     firstName: '',
-        //     lastName: '',
-        //     // phoneNumber: 0,
-        //     phoneNumber: '',
-        //     email: '',
-        //     // dob: 0,
-        //     dob: '',
-        //     Gender: '',
-        //     city: '',
-        //     state: '',
-        //     country: '',
-        //     postalCode: '',
-        //   };
-        //   console.log(JSON.stringify(this.customer, null, 2));
-        // }
+        this.maxCustomerId = parseInt(localStorage.getItem('maxCustomerId') || '0');
+        this.maxCustomerId++;
     }
     render() {
         return html `
@@ -344,63 +357,78 @@ let CustomerDetails = class CustomerDetails extends LitElement {
     handleChange(e) {
         const { name, value } = e.target;
         this.customer = { ...this.customer, [name]: value };
-        // this.customer.firstName = e.target.value;
-        // this.customer.lastName = e.target.value;
-        // console.log(`First Name: ${this.customer.firstName}`);
-        // console.log(`Last Name: ${this.customer.lastName}`);
     }
+    // this.customer.firstName = e.target.value;
+    // this.customer.lastName = e.target.value;
+    // console.log(`First Name: ${this.customer.firstName}`);
+    // console.log(`Last Name: ${this.customer.lastName}`);
     handleGender(e, _key) {
         this.customer.gender = e.target.value;
         // console.log((this.customer.gender = e.target.value));
     }
     formsubmit() {
         // let regex = /^[A-Za-z0-9\-]+$/;
-        this.validate();
-        console.log('This is data :', JSON.stringify(this.customer, null, 2));
-        // console.log(typeof this.customer);
-        // this.customer = this.customer;
-        // this.fomdata.push({ ...this.customer });
-        this.fomdata.push({ ...this.customer });
-        console.log(JSON.stringify(this.fomdata, null, 2));
-        localStorage.setItem('this.fomdata', JSON.stringify(this.fomdata, null, 2));
-        // localStorage.setItem(
-        //   'this.customer',
-        //   JSON.stringify(this.customer, null, 2)
-        // );
-        // this.customer.lastName = '';
-        // this.customer = {} as Customer;
-        console.log(JSON.stringify(this.customer, null, 2), typeof this.customer);
-        //  {<a href="/" style="color:white;text-decoration:none"></a>} ;
-        // this.customer.firstName = '';
-        // this.customer.lastName = '';
-        // this.customer.phoneNumber = '';
-        // email: '',
-        // dob: '',
-        // Gender: '',
-        // city: '',
-        // state: '',
-        // country: '',
-        // postalCode: '',
-        this.customer = {
-            firstName: '',
-            lastName: '',
-            phoneNumber: '',
-            email: '',
-            dob: '',
-            gender: '',
-            city: '',
-            state: '',
-            country: '',
-            postalCode: '',
-            // feedBack : {
-            //   productRating: '',
-            //   deliveryRating: '',
-            //   size: '',
-            //   contactUs: '',
-            //   recommond: '',
-            //   otherFeedabck: '',
-            // },
-        };
+        // this.validate();
+        let errorMessage = this.validate();
+        if (errorMessage == '') {
+            console.log('This is data :', JSON.stringify(this.customer, null, 2));
+            // console.log(typeof this.customer);
+            // this.customer = this.customer;
+            this.customer.customerId = this.maxCustomerId;
+            console.log(this.customer.customerId, this.customer);
+            this.fomdata.push({ ...this.customer });
+            this.customerData.push({ ...this.customer });
+            console.log(JSON.stringify(this.fomdata, null, 2));
+            localStorage.setItem('this.fomdata', JSON.stringify(this.fomdata, null, 2));
+            localStorage.setItem('customerData', JSON.stringify(this.customerData, null, 2));
+            localStorage.setItem('maxCustomerId', this.maxCustomerId + '');
+            alert('Customer saved successfully...');
+            // this.fomdata.push({...this.customer});
+            // console.log(JSON.stringify(this.fomdata, null, 2));
+            // localStorage.setItem(
+            //   'this.fomdata',
+            //   JSON.stringify(this.fomdata, null, 2)
+            // );
+            // localStorage.setItem(
+            //   'this.customer',
+            //   JSON.stringify(this.customer, null, 2)
+            // );
+            // this.customer.lastName = '';
+            // this.customer = {} as Customer;
+            console.log(JSON.stringify(this.customer, null, 2), typeof this.customer);
+            //  {<a href="/" style="color:white;text-decoration:none"></a>} ;
+            // this.customer.firstName = '';
+            // this.customer.lastName = '';
+            // this.customer.phoneNumber = '';
+            // email: '',
+            // dob: '',
+            // Gender: '',
+            // city: '',
+            // state: '',
+            // country: '',
+            // postalCode: '',
+            this.customer = {
+                customerId: 0,
+                firstName: '',
+                lastName: '',
+                phoneNumber: '',
+                email: '',
+                dob: '',
+                gender: '',
+                city: '',
+                state: '',
+                country: '',
+                postalCode: '',
+                feedBack: {
+                    productRating: '',
+                    deliveryRating: '',
+                    size: '',
+                    contactUs: '',
+                    recommond: '',
+                    otherFeedabck: '',
+                },
+            };
+        }
     }
     getData() {
         // let data = {...this.customer};

@@ -1,31 +1,33 @@
 export class Customer {
-  // FirstName!: string;
-  // LastName!: string;
-  // PhoneNumber!: number;
-  // email!: string;
-  // dob!: number;
-  // Gender!: string;
-  // City!: string;
-  // State!: string;
-  // Country!: string;
-  // PostalCode!: string;
-  firstName!: '';
-  lastName!: '';
-  phoneNumber!: '';
-  email!: '';
-  dob!: '';
-  gender!: '';
+  customerId!: Number;
+  firstName!: string;
+  lastName!: string;
+  phoneNumber!: any;
+  email!: string;
+  dob!: any;
+  gender!: string;
+  city!: string;
+  state!: string;
+  country!: string;
+  postalCode!: string;
+  // customerId!: Number;
+  // firstName!: '';
+  // lastName!: '';
+  // phoneNumber!: '';
+  // email!: '';
+  // dob!: '';
+  // gender!: '';
 
-  city!: '';
-  state!: '';
-  country!: '';
-  postalCode!: '';
-  // feedBack = {
-  //   productRating: '',
-  //   deliveryRating: '',
-  //   size: '',
-  //   contactUs: '',
-  //   recommond: '',
-  //   otherFeedabck: '',
-  // };
+  // city!: '';
+  // state!: '';
+  // country!: '';
+  // postalCode!: '';
+  feedBack = {
+    productRating: '',
+    deliveryRating: '',
+    size: '',
+    contactUs: '',
+    recommond: '',
+    otherFeedabck: '',
+  };
 }

@@ -17,14 +17,14 @@ import '@vaadin/text-area';
 import { Feedback } from './feedback';
 export declare class FeedbackCustomer extends LitElement {
     feedback: Feedback;
-    private fbdata;
+    fbdata: any;
     regex: RegExp;
     static styles: import("lit").CSSResult;
     head: string;
     title: string;
     private items;
     protected render(): import("lit-html").TemplateResult<1>;
-    validatefb: () => void;
+    validatefb: () => string;
     handleChange(e: {
         target: {
             name: any;
@@ -34,6 +34,5 @@ export declare class FeedbackCustomer extends LitElement {
     handleSize(e: any, _key: any): void;
     handleContact(e: any, _key: any): void;
     fbformsubmit(): void;
-    getfbData(): void;
 }
 //# sourceMappingURL=feedback-customer.d.ts.map

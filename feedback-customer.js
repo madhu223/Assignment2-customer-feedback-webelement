@@ -50,42 +50,51 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
         ];
         // validation
         this.validatefb = () => {
-            // Product Rating
-            if (!this.feedback.productRating) {
+            let errorMessage = '';
+            if (this.feedback.productRating == null) {
                 // console.log(this.feedback.productRating);
-                alert('productRating is filed is required');
+                errorMessage = 'productRating is filed is required';
             }
-            // if (this.feedback.productRating < 10) {
-            //   console.log(this.feedback.productRating < 10);
-            //   alert('Product rating sholud betweeen 1-10');
-            // }
-            if (!this.regex.test(this.feedback.productRating.toString())) {
-                alert('Product rating sholud betweeen 0-9!');
+            //if (this.feedback.productRating !=null !this.regex.test(this.feedback.productRating.toString())) {
+            else if (!(this.feedback.productRating > 0 && this.feedback.productRating < 10)) {
+                errorMessage =
+                    errorMessage + '\n' + 'Product rating sholud betweeen 0-9!';
             }
             // Delivery rating
             if (!this.feedback.deliveryRating) {
                 // console.log(this.feedback.deliveryRating);
-                alert('DeliveryRating is filed is required');
-            }
-            if (!this.regex.test(this.feedback.deliveryRating.toString())) {
-                alert('DeliveryRating sholud betweeen 0-9!');
+                errorMessage =
+                    errorMessage + '\n' + 'DeliveryRating is filed is required';
+            } //if (!this.regex.test(this.feedback.deliveryRating.toString())) {
+            else if (!(this.feedback.deliveryRating > 0 && this.feedback.deliveryRating < 10)) {
+                errorMessage =
+                    errorMessage + '\n' + 'DeliveryRating sholud betweeen 0-9!';
             }
             //Size
             if (!this.feedback.size) {
                 // console.log(this.feedback.productRating);
-                alert('Size is filed is required');
+                errorMessage = errorMessage + '\n' + 'Size is filed is required';
             }
             // Contact us
             if (!this.feedback.contactUs) {
                 // console.log(this.feedback.productRating);
-                alert('contact us is filed is required');
+                errorMessage = errorMessage + '\n' + 'contact us is filed is required';
             }
             // Recommond
             if (!this.feedback.recommond) {
                 // console.log(this.feedback.productRating);
-                alert('Recommond is filed is required');
+                errorMessage = errorMessage + '\n' + 'Recommond is filed is required';
             }
+            if (errorMessage != '') {
+                alert(errorMessage);
+            }
+            return errorMessage;
         };
+        // getfbData() {
+        //   let myfbdata = JSON.parse(localStorage.getItem('this.feedback') || '{}');
+        //   console.log(myfbdata.productRating, typeof myfbdata);
+        //   console.log(myfbdata, typeof myfbdata);
+        // }
     }
     render() {
         return html `
@@ -197,9 +206,9 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
           </vaadin-horizontal-layout>
         </vaadin-vertical-layout>
 
-        <vaadin-button theme="primary" @click="${this.getfbData}">
+        <!-- <vaadin-button theme="primary" @click="${this}">
           get data</vaadin-button
-        >
+        > -->
       </div>
 
       >
@@ -218,30 +227,28 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
         // console.log((this.feedback.contactUs = e.target.value));
     }
     fbformsubmit() {
-        this.validatefb();
-        console.log(JSON.stringify(this.feedback, null, 2));
-        this.fbdata.push({ ...this.feedback });
-        console.log(JSON.stringify(this.fbdata, null, 2));
-        if (this.fbdata) {
-            localStorage.setItem('this.fbdata', JSON.stringify(this.fbdata, null, 2));
+        let errorMessage = this.validatefb();
+        if (errorMessage == '') {
+            console.log(JSON.stringify(this.feedback, null, 2));
+            this.fbdata.push({ ...this.feedback });
+            console.log(JSON.stringify(this.fbdata, null, 2));
+            if (this.fbdata) {
+                localStorage.setItem('this.fbdata', JSON.stringify(this.fbdata, null, 2));
+            }
+            alert('Feedback saved successfully...');
+            // localStorage.setItem(
+            //   'this.feedback',
+            //   JSON.stringify(this.feedback, null, 2)
+            // );
+            this.feedback = {
+                productRating: '',
+                deliveryRating: '',
+                size: '',
+                contactUs: '',
+                recommond: '',
+                otherFeedabck: '',
+            };
         }
-        // localStorage.setItem(
-        //   'this.feedback',
-        //   JSON.stringify(this.feedback, null, 2)
-        // );
-        this.feedback = {
-            productRating: '',
-            deliveryRating: '',
-            size: '',
-            contactUs: '',
-            recommond: '',
-            otherFeedabck: '',
-        };
-    }
-    getfbData() {
-        let myfbdata = JSON.parse(localStorage.getItem('this.feedback') || '{}');
-        console.log(myfbdata.productRating, typeof myfbdata);
-        console.log(myfbdata, typeof myfbdata);
     }
 };
 FeedbackCustomer.styles = css `

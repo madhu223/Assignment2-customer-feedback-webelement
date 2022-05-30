@@ -19,17 +19,21 @@ import '@vaadin/vertical-layout';
 import '@vaadin/list-box';
 import '@vaadin/select';
 import '@vaadin/text-area';
-import {Feedback} from './feedback';
+// import {Feedback} from './feedback';
 // import {Customer} from './customer';
+
+
 import {CustomerData} from './customerdata';
 
 @customElement('feeadback-customer1')
-export class FeedbackCustomer extends LitElement {
-  feedback: Feedback = new Feedback();
+export class FeedbackCustomer1 extends LitElement {
+  // feedback: Feedback = new Feedback();
   // customer: Customer = new Customer();
   @state()
+  // customer: Customer = new Customer();
   customer: CustomerData = new CustomerData();
-  private fbdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
+  fbdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
+  fomdata = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
   regex = /^[0-9]$/;
   static override styles = css`
     h1 {
@@ -178,7 +182,6 @@ export class FeedbackCustomer extends LitElement {
           get data</vaadin-button
         >
       </div>
-
       >
     `;
   }
@@ -224,10 +227,10 @@ export class FeedbackCustomer extends LitElement {
     }
   };
 
-  handleChange(e: {target: {name: any; value: any}}) {
-    const {name, value} = e.target;
-    this.feedback = {...this.feedback, [name]: value};
-  }
+  // handleChange(e: {target: {name: any; value: any}}) {
+  //   const {name, value} = e.target;
+  //   this.feedback = {...this.feedback, [name]: value};
+  // }
   handleSize(e: any, _key: any) {
     // this.feedback.size = e.target.value;
     this.customer.feedBack.size = e.target.value;
@@ -251,9 +254,14 @@ export class FeedbackCustomer extends LitElement {
     console.log(JSON.stringify(this.customer.feedBack, null, 2));
 
     this.fbdata.push({...this.customer.feedBack});
+    this.fomdata.push({...this.customer.feedBack});
     console.log(JSON.stringify(this.fbdata, null, 2));
     if (this.fbdata) {
       localStorage.setItem('this.fbdata', JSON.stringify(this.fbdata, null, 2));
+      localStorage.setItem(
+        'this.fomdata',
+        JSON.stringify(this.fomdata, null, 2)
+      );
     }
 
     // localStorage.setItem(

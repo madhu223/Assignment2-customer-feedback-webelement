@@ -1,5 +1,5 @@
-import {css, html, LitElement} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import {css, html, LitElement, render} from 'lit';
+import {customElement, property, state} from 'lit/decorators.js';
 import './customer';
 // import '@vaadin/vaadin-text-field';
 // import '@vaadin/vaadin-button';
@@ -17,14 +17,34 @@ import '@vaadin/radio-group';
 import '@vaadin/button';
 import '@vaadin/radio-group/src/vaadin-radio-button';
 import '@vaadin/form-layout';
+import '@vaadin/dialog';
 import {FormLayoutResponsiveStep} from '@vaadin/form-layout';
 import '@vaadin/horizontal-layout';
+import '@vaadin/checkbox';
 import {Customer} from './customer';
+import '@vaadin/text-area';
+//
+import '@vaadin/button';
+import '@vaadin/dialog';
+import '@vaadin/horizontal-layout';
+import '@vaadin/text-field';
+import '@vaadin/vertical-layout';
+import '@vaadin/select';
+import '@vaadin/text-area';
+import {guard} from 'lit/directives/guard.js';
+import {Feedback} from './feedback';
 
-@customElement('customer-details')
-export class CustomerFeedback extends LitElement {
+//
+@customElement('customer-details1')
+export class CustomerDetails extends LitElement {
+  @state()
   customer: Customer = new Customer();
-  fomdata = [{}];
+
+  // private fomdata = [{}];
+  fomdata = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
+  regex = /^[A-Za-z0-9\-]+$/;
+  emailRegex =
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   static override styles = css`
     h2 {
@@ -39,6 +59,21 @@ export class CustomerFeedback extends LitElement {
       justify-content: center;
       margin: auto;
     }
+    //
+    h1 {
+      text-align: center;
+    }
+    h3 {
+      color: blue;
+    }
+    .container1 {
+      text-align: center;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+    }
+
+    //
   `;
 
   @property()
@@ -49,29 +84,70 @@ export class CustomerFeedback extends LitElement {
     // Use two columns, if layout's width exceeds 500px
     {minWidth: '500px', columns: 2},
   ];
+  //
+  fdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
+  // fdata1 = this.fdata.shift();
+  fulldata = [{}];
+
+  // @state()
+
+  @state()
+  private dialogOpened = false;
+  @state()
+  feedback: Feedback = new Feedback();
+
+  // private fbdata = [{}];
+  fbdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
+  regex1 = /^[0-9]$/;
+
+  head = 'Customer Feedback';
+  @property()
+  title1 = ' Tell us how do you think..!';
+  @state()
+  private items = [
+    // {
+    //   label: 'select',
+    //   value: 'select',
+    // },
+    {
+      label: 'May be',
+      value: 'May be',
+    },
+    {
+      label: 'May not be',
+      value: 'May not be',
+    },
+  ];
+
+  //
 
   protected override render() {
     return html`
         <h2>${this.title}</h2>
+
+        
       <div class="container" >
         <!-- <h2>Customer Feedback</h2> -->
 
         <vaadin-form-layout .responsiveSteps="${this.responsiveSteps}">
           <!-- <vaadin-vertical-layout theme="spacing padding">   </vaadin-vertical-layout> -->
-          <!-- placeholder="Enter FirstName" -->
+          <!-- placeholder="Enter firstName" -->
           <vaadin-text-field
             label="FirstName"
-            name="FirstName"
+            name="firstName"
             value=${this.customer.firstName}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
+            minlength=3
+       
           ></vaadin-text-field>
           <vaadin-text-field
             label="LastName"
             name="lastName"
+            minlength=1
             value=${this.customer.lastName}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-text-field>
@@ -81,14 +157,14 @@ export class CustomerFeedback extends LitElement {
             error-message="This field is required"
             name="email"
             value=${this.customer.email}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             error-message="Please enter a valid email address"
           ></vaadin-email-field>
           <vaadin-number-field
             label="Phone Number"
             name="phoneNumber"
             value=${this.customer.phoneNumber}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-number-field>
@@ -98,34 +174,32 @@ export class CustomerFeedback extends LitElement {
             name="dob"
             label="D.O.B"
             value=${this.customer.dob}
-            @change=${this.handleChange}
+            @change =${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-date-picker>
           
           <vaadin-radio-group
             label="Gender"
-            
-       
-            theme="horizontal"
-            
-            >
-         
+           
+              theme="horizontal"
+              value=${this.customer.gender}
+            @value-changed =${(e: any) => {
+              this.handleGender(e, 'gender');
+            }}
+                >
             <vaadin-radio-button
             label="Male"
             name="Gender"
             value="Male"
-            @value-changed=${this.handleChange}
-           
-            >
+              >
             </vaadin-radio-button>
             <vaadin-radio-button
               label="Female"
               name="Gender"
               value="Female"
-              @value-changed=${this.handleChange}
-             
-            ></vaadin-radio-button>
+              
+              ></vaadin-radio-button>
             </vaadin-radio-group>
 
           <vaadin-text-field
@@ -133,7 +207,7 @@ export class CustomerFeedback extends LitElement {
             name="city"
             required
             value=${this.customer.city}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             error-message="This field is required"
           ></vaadin-text-field>
 
@@ -141,7 +215,7 @@ export class CustomerFeedback extends LitElement {
             label="State"
             name="state"
             value=${this.customer.state}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-text-field>
@@ -150,7 +224,8 @@ export class CustomerFeedback extends LitElement {
             label="Country"
             name="country"
             value=${this.customer.country}
-            @change=${this.handleChange}
+         
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-text-field>
@@ -158,11 +233,39 @@ export class CustomerFeedback extends LitElement {
             label="PostalCode"
             name="postalCode"
             value=${this.customer.postalCode}
-            @change=${this.handleChange}
+            @input=${this.handleChange}
             required
             error-message="This field is required"
           ></vaadin-number-field>
+          <!-- <vaadin-checkbox 
+            label='Feedback'
+            name='feedBack'
+            
+            value=  ${this.customer}
+            @click =${this.handleChange}
+          >
+
+          </vaadin-checkbox> -->
         
+          <!-- <label>
+            <h4>How do you rate the quality of the product ?</h4>
+          </label>
+          <vaadin-number-field
+            name="productRating"
+            value=${this.customer}
+            @change=${this.handleChange}
+            required
+            error-message="This field is required"
+          >
+          </vaadin-number-field>
+          <label>
+            <h4>Would you give any other feedback to us ?</h4>
+          </label>
+          <vaadin-text-area
+            name="otherFeedabck"
+            value=${this.customer}
+            @change=${this.handleChange}
+          ></vaadin-text-area>  -->
 
         <!-- <vaadin-button theme="primary">Submit</vaadin-button> -->
 
@@ -170,11 +273,19 @@ export class CustomerFeedback extends LitElement {
         
     
         >
-          <!-- <vaadin-button  theme="primary" 
+          <vaadin-button  theme="primary" 
           @click ="${this.formsubmit}"
-          >Submit</vaadin-button>
+          >Submit </vaadin-button>
           <vaadin-button theme="secondary"
-         >Cancel</vaadin-button> -->
+          >
+          <a href="/" style="color:Blue;text-decoration:none"
+          >Back</a>
+          </vaadin-button>
+          <vaadin-button theme="primary"
+          >
+          <a href="/feedback" style="color:white;text-decoration:none; width:30px"
+          >Feedback </a>
+          </vaadin-button>
         </vaadin-horizontal-layout>
       </vaadin-vertical-layout>
       </vaadin-form-layout>
@@ -182,44 +293,397 @@ export class CustomerFeedback extends LitElement {
       <slot></slot>
       </div>
 
-     
+<!--      
       <vaadin-button theme="primary" 
           @click ="${this.getData}"
           >
-        get data</vaadin-button>
+        get data</vaadin-button> -->
+
+        
+        <div class="container1">
+        <vaadin-dialog
+        aria-label="Create new employee"
+        .opened="${this.dialogOpened}"
+        @opened-changed="${(e: CustomEvent) =>
+          (this.dialogOpened = e.detail.value)}"
+        .renderer="${guard([], () => (root: HTMLElement) => {
+          render(
+            html`
+              <h1>${this.head}</h1>
+              <vaadin-vertical-layout
+                theme="spacing"
+                style="width: 600px; max-width: 100%; align-items: stretch;"
+              >
+                <h2
+                  style="margin: var(--lumo-space-m) 0 0 0; font-size: 1.5em; font-weight: bold;"
+                >
+                  Create new employee
+                </h2>
+                <vaadin-vertical-layout style="align-items: stretch;">
+                  <!-- <vaadin-text-field label="First name"></vaadin-text-field>
+                  <vaadin-text-field label="Last name"></vaadin-text-field> -->
+                  <h3>${this.title1}</h3>
+
+                  <label>
+                    <h4>How do you rate the quality of the product ?</h4>
+                  </label>
+                  <vaadin-number-field
+                    name="productRating"
+                    value=${this.feedback.productRating}
+                    @input=${this.handlefbChange}
+                    required
+                    error-message="This field is required"
+                  >
+                  </vaadin-number-field>
+
+                  <label>
+                    <h4>How do you rate the speed of delivery ?</h4>
+                  </label>
+                  <vaadin-number-field
+                    name="deliveryRating"
+                    value=${this.feedback.deliveryRating}
+                    @input=${this.handlefbChange}
+                    required
+                    error-message="This field is required"
+                  >
+                  </vaadin-number-field>
+
+                  <label>
+                    <h4>How do you find the sizing of the product ?</h4>
+                  </label>
+                  <vaadin-radio-group
+                    theme="vertical"
+                    value=${this.feedback.size}
+                    @value-changed=${(e: any) => {
+                      this.handleSize(e, 'size');
+                    }}
+                  >
+                    <vaadin-radio-button
+                      value="Too small"
+                      label="Too small"
+                      name="size"
+                    ></vaadin-radio-button>
+                    <vaadin-radio-button
+                      value="Just Right"
+                      label="Just Right"
+                      name="size"
+                    ></vaadin-radio-button>
+
+                    <vaadin-radio-button
+                      value="Too Large"
+                      label="Too Large"
+                      name="size"
+                    ></vaadin-radio-button>
+                  </vaadin-radio-group>
+
+                  <label>
+                    <h4>Would you like to contact us for different sizing?</h4>
+                  </label>
+                  <vaadin-radio-group
+                    theme="vertical"
+                    value=${this.feedback.contactUs}
+                    @value-changed=${(e: any) => {
+                      this.handleContact(e, 'contactUs');
+                    }}
+                  >
+                    <vaadin-radio-button
+                      theme="vertical"
+                      value="Yes"
+                      label="Yes"
+                      name="contactUs"
+                    ></vaadin-radio-button>
+                    <vaadin-radio-button
+                      value="No"
+                      label="No"
+                      name="contactUs"
+                    ></vaadin-radio-button>
+                  </vaadin-radio-group>
+
+                  <label>
+                    <h4>Would you recommond our product to others ?</h4>
+                  </label>
+                  <vaadin-select
+                    placeholder="select"
+                    .items="${this.items}"
+                    name="recommond"
+                    value=${this.feedback.recommond}
+                    @value-changed=${this.handlefbChange}
+                  ></vaadin-select>
+
+                  <label>
+                    <h4>Would you like to give any other feedback to us ?</h4>
+                  </label>
+                  <vaadin-text-area
+                    name="otherFeedabck"
+                    value=${this.feedback.otherFeedabck}
+                    @change=${this.handlefbChange}
+                  ></vaadin-text-area>
+
+                  <vaadin-horizontal-layout theme="spacing">
+                    <vaadin-button @click="${this.fbformsubmit}" theme="primary"
+                      >Submit</vaadin-button
+                    >
+                    <vaadin-button theme="secondary">Cancel</vaadin-button>
+                  </vaadin-horizontal-layout>
+                </vaadin-vertical-layout>
+
+                <vaadin-horizontal-layout
+                  theme="spacing"
+                  style="justify-content: flex-end"
+                >
+                  <vaadin-button @click="${() => (this.dialogOpened = false)}">
+                    Cancel
+                  </vaadin-button>
+                  <vaadin-button
+                    theme="primary"
+                    @click="${() => (this.dialogOpened = false)}"
+                  >
+                    Save
+                  </vaadin-button>
+                </vaadin-horizontal-layout>
+              </vaadin-vertical-layout>
+            `,
+            root
+          );
+        })}"
+      ></vaadin-dialog>
+
+      <vaadin-button @click="${() => (this.dialogOpened = true)}">
+        Feedback
+      </vaadin-button>
+
+
+
+        </div>
+
      
       
     `;
   }
+  //
 
+  handlefbChange(e: {target: {name: any; value: any}}) {
+    const {name, value} = e.target;
+    this.feedback = {...this.feedback, [name]: value};
+  }
+  handleSize(e: any, _key: any) {
+    this.feedback.size = e.target.value;
+    // console.log((this.feedback.size = e.target.value));
+  }
+  handleContact(e: any, _key: any) {
+    this.feedback.contactUs = e.target.value;
+    // console.log((this.feedback.contactUs = e.target.value));
+  }
+
+  fbformsubmit() {
+    // this.validatefb();
+    console.log(JSON.stringify(this.feedback, null, 2));
+
+    this.fbdata.push({...this.feedback});
+    console.log(JSON.stringify(this.fbdata, null, 2));
+    if (this.fbdata) {
+      localStorage.setItem('this.fbdata', JSON.stringify(this.fbdata, null, 2));
+    }
+
+    // localStorage.setItem(
+    //   'this.feedback',
+    //   JSON.stringify(this.feedback, null, 2)
+    // );
+
+    this.feedback = {
+      // fbcustomerId: 0,
+      productRating: '',
+      deliveryRating: '',
+      size: '',
+      contactUs: '',
+      recommond: '',
+      otherFeedabck: '',
+    };
+  }
+
+  //
   handleChange(e: {target: {value: any; name?: any}}) {
     const {name, value} = e.target;
     this.customer = {...this.customer, [name]: value};
-
-    // this.customer.FirstName = e.target.value;
-    // this.customer.lastName = e.target.value;
-    // console.log(`First Name: ${this.customer.FirstName}`);
-    // console.log(`Last Name: ${this.customer.lastName}`);
   }
-  formsubmit() {
-    if (this.customer !== null) {
-      // console.log(this.customer.FirstName);
-      console.log('This is data :', JSON.stringify(this.customer, null, 2));
+
+  // this.customer.firstName = e.target.value;
+  // this.customer.lastName = e.target.value;
+  // console.log(`First Name: ${this.customer.firstName}`);
+  // console.log(`Last Name: ${this.customer.lastName}`);
+
+  handleGender(e: any, _key: any) {
+    this.customer.gender = e.target.value;
+    // console.log((this.customer.gender = e.target.value));
+  }
+
+  // handlefbChange(e: {target: {value: any; name?: any}}) {
+  //   const {name, value} = e.target;
+  //   this.customer.feedBack = {...this.customer.feedBack, [name]: value};
+  //   console.log(this.customer.feedBack);
+  // }
+
+  validate = () => {
+    // First Name
+    if (this.customer.firstName === null) {
+      // console.log(this.customer.firstName.valueOf);
+      alert('First Name is filed is required');
     }
+    if (this.customer.firstName.length < 3) {
+      alert('First Name sholud containe min 3 letters');
+    }
+    if (!this.regex.test(this.customer.firstName)) {
+      alert('First Name should contain only alphanumeric and no space!');
+    }
+    // Lastst Name
+    if (this.customer.lastName === null) {
+      // console.log(this.customer.lastName.valueOf);
+      alert('Last Name is filed is required');
+    }
+    if (this.customer.lastName.length < 1) {
+      alert('Last Name sholud containe min 1 letters');
+    }
+    if (!this.regex.test(this.customer.lastName)) {
+      alert('Last Name should contain only alphanumeric and no space!');
+    }
+    // email
+
+    if (this.customer.email === null) {
+      // console.log(this.customer.email.valueOf);
+      alert('email is filed is required');
+    }
+    if (!this.emailRegex.test(this.customer.email)) {
+      alert('Invalid email format !');
+    }
+    if (this.customer.email.length < 3) {
+      alert('email sholud containe min 3 letters');
+    }
+
+    // Phone Number
+
+    if (!this.customer.phoneNumber) {
+      // console.log(this.customer.phoneNumber..valueOf);
+      alert('phoneNumber. is filed is required');
+    }
+
+    if (this.customer.phoneNumber.length < 5) {
+      alert('phoneNumber sholud containe min 5 numbers');
+    }
+
+    // DOb
+    if (!this.customer.dob) {
+      // console.log(this.customer.phoneNumber..valueOf);
+      alert('DOb is filed is required');
+    }
+    // Gender
+    if (this.customer.gender === null) {
+      // console.log(this.customer.phoneNumber..valueOf);
+      alert('Gender is filed is required');
+    }
+
+    //city
+    if (!this.customer.city) {
+      // console.log(this.customer.city.valueOf);
+      alert('city is filed is required');
+    }
+    if (this.customer.city.length < 3) {
+      alert('city sholud containe min 3 letters');
+    }
+    if (!this.regex.test(this.customer.city)) {
+      alert('city should contain only alphanumeric and no space!');
+    }
+
+    //state
+    if (!this.customer.state) {
+      // console.log(this.customer.state.valueOf);
+      alert('state is filed is required');
+    }
+    if (this.customer.state.length < 3) {
+      alert('state sholud containe min 3 letters');
+    }
+    if (!this.regex.test(this.customer.state)) {
+      alert('state should contain only alphanumeric and no space!');
+    }
+    //country
+    if (!this.customer.country) {
+      // console.log(this.customer.country.valueOf);
+      alert('country is filed is required');
+    }
+    if (this.customer.country.length < 3) {
+      alert('country sholud containe min 3 letters');
+    }
+    if (!this.regex.test(this.customer.country)) {
+      alert('country should contain only alphanumeric and no space!');
+    }
+    // postalCode
+    if (this.customer.postalCode === null) {
+      // console.log(this.customer.postalCode..valueOf);
+      alert('postalCode. is filed is required');
+    }
+
+    if (this.customer.postalCode.length < 5) {
+      alert('postalCode sholud containe min 5 numbers');
+    }
+  };
+
+  formsubmit() {
+    // let regex = /^[A-Za-z0-9\-]+$/;
+    this.validate();
+
+    console.log('This is data :', JSON.stringify(this.customer, null, 2));
     // console.log(typeof this.customer);
     // this.customer = this.customer;
+
+    // this.fomdata.push({ ...this.customer });
     this.fomdata.push({...this.customer});
+
     console.log(JSON.stringify(this.fomdata, null, 2));
+
     localStorage.setItem('this.fomdata', JSON.stringify(this.fomdata, null, 2));
 
-    localStorage.setItem(
-      'this.customer',
-      JSON.stringify(this.customer, null, 2)
-    );
-    // this.customer.FirstName = '';
+    // localStorage.setItem(
+    //   'this.customer',
+    //   JSON.stringify(this.customer, null, 2)
+    // );
+    // this.customer.lastName = '';
     // this.customer = {} as Customer;
 
     console.log(JSON.stringify(this.customer, null, 2), typeof this.customer);
+    //  {<a href="/" style="color:white;text-decoration:none"></a>} ;
+
+    // this.customer.firstName = '';
+    // this.customer.lastName = '';
+    // this.customer.phoneNumber = '';
+    // email: '',
+    // dob: '',
+    // Gender: '',
+
+    // city: '',
+    // state: '',
+    // country: '',
+    // postalCode: '',
+    this.customer = {
+      customerId: 0,
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      email: '',
+      dob: '',
+      gender: '',
+
+      city: '',
+      state: '',
+      country: '',
+      postalCode: '',
+      feedBack: {
+        productRating: '',
+        deliveryRating: '',
+        size: '',
+        contactUs: '',
+        recommond: '',
+        otherFeedabck: '',
+      },
+    };
   }
   getData() {
     // let data = {...this.customer};
@@ -231,38 +695,6 @@ export class CustomerFeedback extends LitElement {
     // );
 
     let mydata = JSON.parse(localStorage.getItem('this.customer') || '{}');
-    console.log(
-      // mydata.PhoneNumber,
-      // typeof mydata.PhoneNumber,
-
-      mydata.Gender,
-      typeof mydata.Gender,
-      // mydata.dob,
-      // mydata.City,
-      // mydata.State,
-      // mydata.Country,
-      // mydata.postalCode,
-      // typeof mydata.postalCode,
-      // mydata.FirstName,
-      typeof mydata
-    );
+    console.log(mydata);
   }
-  // formcancel() {
-  //   this.customer = {
-  //     FirstName: '',
-  //     lastName: '',
-  //     // PhoneNumber: 0,
-  //     PhoneNumber: '',
-  //     email: '',
-  //     // dob: 0,
-  //     dob: '',
-  //     Gender: '',
-
-  //     City: '',
-  //     State: '',
-  //     Country: '',
-  //     postalCode: '',
-  //   };
-  //   console.log(JSON.stringify(this.customer, null, 2));
-  // }
 }

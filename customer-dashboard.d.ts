@@ -7,6 +7,8 @@ import './feedback-customer';
 import '@vaadin/grid/vaadin-grid-selection-column.js';
 import '@vaadin/radio-group';
 import './customers-aggrid';
+import './customer-details1';
+import './view-customer';
 export declare class CustomerDashboard extends LitElement {
     data: any;
     fdata: any;
