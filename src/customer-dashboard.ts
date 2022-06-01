@@ -79,7 +79,13 @@ export class CustomerDashboard extends LitElement {
             <vaadin-grid-column path="firstName"> </vaadin-grid-column>
             <vaadin-grid-column path="lastName"></vaadin-grid-column>
             <vaadin-grid-column path="email"></vaadin-grid-column>
-            <vaadin-grid-column path="gender"></vaadin-grid-column>
+            <!-- <vaadin-grid-column path="gender"></vaadin-grid-column> -->
+            <!-- <vaadin-grid-column
+              path="feedBack.productRating"
+            ></vaadin-grid-column>
+            <vaadin-grid-column
+              path="feedBack.otherFeedabck"
+            ></vaadin-grid-column> -->
           </vaadin-grid>
         </div>
         <view-customer></view-customer>
@@ -87,15 +93,23 @@ export class CustomerDashboard extends LitElement {
 
       <!--  -->
       <div>
-        <vaadin-grid .items="${this.fdata}" style="width:600px">
+        <vaadin-grid .items="${this.data}" style="width:600px">
           <!-- <vaadin-grid-column path="fbcustomerId"> </vaadin-grid-column> -->
-          <vaadin-grid-column path="productRating"></vaadin-grid-column>
-          <vaadin-grid-column path="deliveryRating"></vaadin-grid-column>
-          <vaadin-grid-column path="recommond"></vaadin-grid-column>
-          <vaadin-grid-column path="otherFeedabck"></vaadin-grid-column>
+          <vaadin-grid-column path="customerId"> </vaadin-grid-column>
+          <vaadin-grid-column
+            path="feedBack.productRating"
+          ></vaadin-grid-column>
+          <vaadin-grid-column
+            path="feedBack.deliveryRating"
+          ></vaadin-grid-column>
+          <vaadin-grid-column path="feedBack.recommond"></vaadin-grid-column>
+          <vaadin-grid-column
+            path="feedBack.otherFeedabck"
+          ></vaadin-grid-column>
           <!-- <vaadin-grid-column path="contactUs"></vaadin-grid-column> -->
         </vaadin-grid>
       </div>
+      <!-- <customer-details1></customer-details1> -->
 
       <!--  -->
 

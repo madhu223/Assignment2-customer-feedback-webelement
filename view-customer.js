@@ -44,6 +44,7 @@ let ViewCustomer = class ViewCustomer extends LitElement {
       >
         <vaadin-number-field
           label="CustomerId"
+          placeholder="Enter Id to view"
           @input=${this.handleview}
         ></vaadin-number-field>
         <!-- <vaadin-button @click=${this}>click</vaadin-button> -->
@@ -55,19 +56,28 @@ let ViewCustomer = class ViewCustomer extends LitElement {
         <p>Gender : <b> ${this.data[this.Id].gender} </b></p>
         <p>DOB : <b> ${this.data[this.Id].dob} </b></p>
         <p>Phone Number : <b> ${this.data[this.Id].phoneNumber} </b></p>
+
         <p><b>Address</b> :</p>
         <p>City : <b> ${this.data[this.Id].city} </b></p>
         <p>State : <b> ${this.data[this.Id].state} </b></p>
         <p>Country : <b> ${this.data[this.Id].country} </b></p>
         <p>PostalCode : <b> ${this.data[this.Id].postalCode} </b></p>
+
         <p><b>Feedback</b> :</p>
 
-        <p>ProductRating : <b> ${this.fdata[this.Id].productRating} </b></p>
-        <p>DeliveryRating : <b> ${this.fdata[this.Id].deliveryRating} </b></p>
-        <p>Size : <b> ${this.fdata[this.Id].size} </b></p>
-        <p>ContactUs : <b> ${this.fdata[this.Id].contactUs} </b></p>
-        <p>Recommond : <b> ${this.fdata[this.Id].recommond} </b></p>
-        <p>OtherFeedabck : <b> ${this.fdata[this.Id].otherFeedabck} </b></p>
+        <p>
+          ProductRating : <b> ${this.data[this.Id].feedBack.productRating} </b>
+        </p>
+        <p>
+          DeliveryRating :
+          <b> ${this.data[this.Id].feedBack.deliveryRating} </b>
+        </p>
+        <p>Size : <b> ${this.data[this.Id].feedBack.size} </b></p>
+        <p>ContactUs : <b> ${this.data[this.Id].feedBack.contactUs} </b></p>
+        <p>Recommond : <b> ${this.data[this.Id].feedBack.recommond} </b></p>
+        <p>
+          OtherFeedabck : <b> ${this.data[this.Id].feedBack.otherFeedabck} </b>
+        </p>
       </div>
     `;
     }

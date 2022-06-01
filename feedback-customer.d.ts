@@ -18,6 +18,9 @@ import { Feedback } from './feedback';
 export declare class FeedbackCustomer extends LitElement {
     feedback: Feedback;
     fbdata: any;
+    fomdata: any;
+    custs: Array<object>;
+    constructor();
     regex: RegExp;
     static styles: import("lit").CSSResult;
     head: string;

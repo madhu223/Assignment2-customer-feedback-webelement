@@ -28,13 +28,16 @@ import '@vaadin/horizontal-layout';
 import '@vaadin/checkbox';
 import { Customer } from './customer';
 import '@vaadin/text-area';
+// import './customer-details1';
 let CustomerDetails = class CustomerDetails extends LitElement {
     constructor() {
         super();
         this.customer = new Customer();
         // private fomdata = [{}];
         this.fomdata = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
-        this.customerData = JSON.parse(localStorage.getItem('customerData') || '[]');
+        // private customerData = JSON.parse(
+        //   localStorage.getItem('customerData') || '[]'
+        // );
         this.regex = /^[A-Za-z0-9\-]+$/;
         this.emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         this.title = 'Customer Details';
@@ -350,6 +353,7 @@ let CustomerDetails = class CustomerDetails extends LitElement {
           @click ="${this.getData}"
           >
         get data</vaadin-button> -->
+        <!-- <customer-details1></customer-details1> -->
      
       
     `;
@@ -361,7 +365,7 @@ let CustomerDetails = class CustomerDetails extends LitElement {
     // this.customer.firstName = e.target.value;
     // this.customer.lastName = e.target.value;
     // console.log(`First Name: ${this.customer.firstName}`);
-    // console.log(`Last Name: ${this.customer.lastName}`);
+    // console.log(`Last Name: ${this.customer.lastName}`;
     handleGender(e, _key) {
         this.customer.gender = e.target.value;
         // console.log((this.customer.gender = e.target.value));
@@ -377,10 +381,13 @@ let CustomerDetails = class CustomerDetails extends LitElement {
             this.customer.customerId = this.maxCustomerId;
             console.log(this.customer.customerId, this.customer);
             this.fomdata.push({ ...this.customer });
-            this.customerData.push({ ...this.customer });
+            // this.customerData.push({...this.customer});
             console.log(JSON.stringify(this.fomdata, null, 2));
             localStorage.setItem('this.fomdata', JSON.stringify(this.fomdata, null, 2));
-            localStorage.setItem('customerData', JSON.stringify(this.customerData, null, 2));
+            // localStorage.setItem(
+            //   'customerData',
+            //   JSON.stringify(this.customerData, null, 2)
+            // );
             localStorage.setItem('maxCustomerId', this.maxCustomerId + '');
             alert('Customer saved successfully...');
             // this.fomdata.push({...this.customer});
@@ -420,6 +427,7 @@ let CustomerDetails = class CustomerDetails extends LitElement {
                 country: '',
                 postalCode: '',
                 feedBack: {
+                    customerId: '',
                     productRating: '',
                     deliveryRating: '',
                     size: '',

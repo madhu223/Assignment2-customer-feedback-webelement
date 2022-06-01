@@ -2,6 +2,7 @@ import {Router} from '@vaadin/router';
 import './customer-dashboard';
 import './customer-details';
 import './feedback-customer';
+import './feedback-customernew';
 import './not-found';
 import './customer-feedback1';
 window.addEventListener('load', () => {
@@ -22,6 +23,7 @@ function initRouter() {
     },
     // {path: '/feedback', component: 'feeadback-customer'},
     {path: '/feedback', component: 'feeadback-customer'},
+    // {path: '/feedbacknew', component: 'feeadback-customernew'},
     {path: '(.*)', component: 'not-found'},
   ]);
 }

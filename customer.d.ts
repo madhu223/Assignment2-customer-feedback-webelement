@@ -11,6 +11,7 @@ export declare class Customer {
     country: string;
     postalCode: string;
     feedBack: {
+        customerId: string;
         productRating: string;
         deliveryRating: string;
         size: string;

@@ -12,6 +12,7 @@ export class Customer {
         // country!: '';
         // postalCode!: '';
         this.feedBack = {
+            customerId: '',
             productRating: '',
             deliveryRating: '',
             size: '',

@@ -1,40 +1,38 @@
 import { LitElement } from 'lit';
-import './customer';
 import '@vaadin/text-field';
 import '@vaadin/email-field';
 import '@vaadin/number-field';
+import '@vaadin/radio-group';
 import '@vaadin/vertical-layout';
 import '@vaadin/date-picker';
-import '@vaadin/radio-group';
 import '@vaadin/button';
 import '@vaadin/radio-group/src/vaadin-radio-button';
 import '@vaadin/form-layout';
-import '@vaadin/dialog';
 import '@vaadin/horizontal-layout';
-import '@vaadin/checkbox';
-import { Customer } from './customer';
+import '@vaadin/form-layout/vaadin-form-item';
+import '@vaadin/vertical-layout';
+import '@vaadin/list-box';
+import '@vaadin/select';
 import '@vaadin/text-area';
-export declare class CustomerDetails extends LitElement {
-    customer: Customer;
-    private maxCustomerId;
+export declare class FeedbackCustomer extends LitElement {
+    data: any;
+    Id: number;
     constructor();
-    private fomdata;
     regex: RegExp;
-    emailRegex: RegExp;
     static styles: import("lit").CSSResult;
+    head: string;
     title: string;
-    private responsiveSteps;
-    errors: any;
+    private items;
     protected render(): import("lit-html").TemplateResult<1>;
+    validatefb: () => string;
     handleChange(e: {
         target: {
+            name: any;
             value: any;
-            name?: any;
         };
     }): void;
-    handleGender(e: any, _key: any): void;
-    validate: () => string;
-    formsubmit(): void;
-    getData(): void;
+    handleSize(e: any, _key: any): void;
+    handleContact(e: any, _key: any): void;
+    fbformsubmit(): void;
 }
-//# sourceMappingURL=customer-details.d.ts.map
+//# sourceMappingURL=feedback-customer1.d.ts.map

@@ -19,30 +19,23 @@ import '@vaadin/vertical-layout';
 import '@vaadin/list-box';
 import '@vaadin/select';
 import '@vaadin/text-area';
-import {Feedback} from './feedback';
+// import {Feedback} from './feedback';
 
-@customElement('feeadback-customer')
+@customElement('feeadback-customernew')
 export class FeedbackCustomer extends LitElement {
+  //   @state()
+  //   feedback: Feedback = new Feedback();
+  // Customerdata
   @state()
-  feedback: Feedback = new Feedback();
-
-  // private fbdata = [{}];
-  fbdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
-  //
   fomdata = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
-  custs: Array<object> = [];
-
+  Id: number;
   constructor() {
     super();
-    for (let i = 0; i < this.fomdata.length; i++) {
-      let obj = {
-        label: this.fomdata[i].firstName,
-        value: this.fomdata[i].customerId,
-      };
-      this.custs.push(obj);
-    }
+    this.Id = 0;
   }
-  //
+
+  // private fbdata = [{}];
+  //   fbdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
   regex = /^[0-9]$/;
   static override styles = css`
     h1 {
@@ -76,6 +69,14 @@ export class FeedbackCustomer extends LitElement {
       value: 'May not be',
     },
   ];
+  handleview(e: {target: {value: any}}) {
+    this.Id = e.target.value - 1;
+    console.log(this.Id);
+    this.fomdata = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
+    // this.fdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
+    console.log(this.fomdata[this.Id]);
+    // console.log(this.fdata[this.Id]);
+  }
 
   protected override render() {
     return html`
@@ -83,23 +84,17 @@ export class FeedbackCustomer extends LitElement {
       <div class="container">
         <vaadin-vertical-layout>
           <h2>${this.title}</h2>
-          <label>
-            <h4>Select customer to give us feedback.</h4>
-          </label>
-          <vaadin-select
-            placeholder="select"
-            .items="${this.custs}"
-            name="customerId"
-            value=${this.feedback.customerId}
-            @value-changed=${this.handleChange}
-          ></vaadin-select>
+          <vaadin-number-field
+            label="CustomerId"
+            @input=${this.handleview}
+          ></vaadin-number-field>
 
           <label>
             <h4>How do you rate the quality of the product ?</h4>
           </label>
           <vaadin-number-field
             name="productRating"
-            value=${this.feedback.productRating}
+            value=${this.fomdata[this.Id].feedBack.productRating}
             @input=${this.handleChange}
             required
             error-message="This field is required"
@@ -111,7 +106,7 @@ export class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-number-field
             name="deliveryRating"
-            value=${this.feedback.deliveryRating}
+            value=${this.fomdata[this.Id].feedBack.deliveryRating}
             @input=${this.handleChange}
             required
             error-message="This field is required"
@@ -123,7 +118,7 @@ export class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-radio-group
             theme="vertical"
-            value=${this.feedback.size}
+            value=${this.fomdata[this.Id].feedBack.size}
             @value-changed=${(e: any) => {
               this.handleSize(e, 'size');
             }}
@@ -151,7 +146,7 @@ export class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-radio-group
             theme="vertical"
-            value=${this.feedback.contactUs}
+            value=${this.fomdata[this.Id].feedBack.contactUs}
             @value-changed=${(e: any) => {
               this.handleContact(e, 'contactUs');
             }}
@@ -176,7 +171,7 @@ export class FeedbackCustomer extends LitElement {
             placeholder="select"
             .items="${this.items}"
             name="recommond"
-            value=${this.feedback.recommond}
+            value=${this.fomdata[this.Id].feedBack.recommond}
             @value-changed=${this.handleChange}
           ></vaadin-select>
 
@@ -185,7 +180,7 @@ export class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-text-area
             name="otherFeedabck"
-            value=${this.feedback.otherFeedabck}
+            value=${this.fomdata[this.Id].feedBack.otherFeedabck}
             @change=${this.handleChange}
           ></vaadin-text-area>
 
@@ -198,7 +193,7 @@ export class FeedbackCustomer extends LitElement {
         </vaadin-vertical-layout>
 
         <!-- <vaadin-button theme="primary" @click="${this}">
-          get data</vaadin-button
+          get fomdata</vaadin-button
         > -->
       </div>
 
@@ -206,47 +201,54 @@ export class FeedbackCustomer extends LitElement {
     `;
   }
   // validation
+  //   ${this.data[this.Id].feedBack.productRating}
 
   validatefb = () => {
     let errorMessage = '';
-    if (this.feedback.productRating == null) {
-      // console.log(this.feedback.productRating);
+    if (this.fomdata[this.Id].feedBack.productRating == null) {
+      // console.log(this.fomdata[this.Id].feedBack.productRating);
       errorMessage = 'productRating is filed is required';
     }
 
-    //if (this.feedback.productRating !=null !this.regex.test(this.feedback.productRating.toString())) {
+    //if (this.fomdata[this.Id].feedBack.productRating !=null !this.regex.test(this.fomdata[this.Id].feedBack.productRating.toString())) {
     else if (
-      !(this.feedback.productRating > 0 && this.feedback.productRating < 10)
+      !(
+        this.fomdata[this.Id].feedBack.productRating > 0 &&
+        this.fomdata[this.Id].feedBack.productRating < 10
+      )
     ) {
       errorMessage =
         errorMessage + '\n' + 'Product rating sholud betweeen 0-9!';
     }
     // Delivery rating
-    if (!this.feedback.deliveryRating) {
-      // console.log(this.feedback.deliveryRating);
+    if (!this.fomdata[this.Id].feedBack.deliveryRating) {
+      // console.log(this.fomdata[this.Id].feedBack.deliveryRating);
       errorMessage =
         errorMessage + '\n' + 'DeliveryRating is filed is required';
-    } //if (!this.regex.test(this.feedback.deliveryRating.toString())) {
+    } //if (!this.regex.test(this.fomdata[this.Id].feedBack.deliveryRating.toString())) {
     else if (
-      !(this.feedback.deliveryRating > 0 && this.feedback.deliveryRating < 10)
+      !(
+        this.fomdata[this.Id].feedBack.deliveryRating > 0 &&
+        this.fomdata[this.Id].feedBack.deliveryRating < 10
+      )
     ) {
       errorMessage =
         errorMessage + '\n' + 'DeliveryRating sholud betweeen 0-9!';
     }
 
     //Size
-    if (!this.feedback.size) {
-      // console.log(this.feedback.productRating);
+    if (!this.fomdata[this.Id].feedBack.size) {
+      // console.log(this.fomdata[this.Id].feedBack.productRating);
       errorMessage = errorMessage + '\n' + 'Size is filed is required';
     }
     // Contact us
-    if (!this.feedback.contactUs) {
-      // console.log(this.feedback.productRating);
+    if (!this.fomdata[this.Id].feedBack.contactUs) {
+      // console.log(this.fomdata[this.Id].feedBack.productRating);
       errorMessage = errorMessage + '\n' + 'contact us is filed is required';
     }
 
     // Recommond
-    if (!this.feedback.recommond) {
+    if (!this.fomdata[this.Id].feedBack.recommond) {
       // console.log(this.feedback.productRating);
       errorMessage = errorMessage + '\n' + 'Recommond is filed is required';
     }
@@ -258,37 +260,38 @@ export class FeedbackCustomer extends LitElement {
 
   handleChange(e: {target: {name: any; value: any}}) {
     const {name, value} = e.target;
-    this.feedback = {...this.feedback, [name]: value};
+    this.fomdata[this.Id].feedBack = {
+      ...this.fomdata[this.Id].feedBack,
+      [name]: value,
+    };
   }
   handleSize(e: any, _key: any) {
-    this.feedback.size = e.target.value;
-    // console.log((this.feedback.size = e.target.value));
+    this.fomdata[this.Id].feedBack.size = e.target.value;
+    // console.log((this.fomdata[this.Id].feedBack.size = e.target.value));
   }
   handleContact(e: any, _key: any) {
-    this.feedback.contactUs = e.target.value;
-    // console.log((this.feedback.contactUs = e.target.value));
+    this.fomdata[this.Id].feedBack.contactUs = e.target.value;
+    // console.log((this.fomdata[this.Id].feedBack.contactUs = e.target.value));
   }
 
   fbformsubmit() {
+    // localStorage.setItem('this.fomdata', JSON.stringify(this.fomdata, null, 2));
+
+    // this.fomdata.push({...this.fomdata[this.Id]});
+    // console.log(JSON.stringify(this.fomdata[this.Id], null, 2));
+    // console.log(this.fomdata);
+
     let errorMessage = this.validatefb();
     if (errorMessage == '') {
-      console.log(JSON.stringify(this.feedback, null, 2));
+      console.log(JSON.stringify(this.fomdata[this.Id], null, 2));
 
-      let customers = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
-      for (let i = 0; i < customers.length; i++) {
-        if (customers[i].customerId == this.feedback.customerId) {
-          customers[i].feedBack = this.feedback;
-        }
-      }
-      console.log(customers);
-      localStorage.setItem('this.fomdata', JSON.stringify(customers, null, 2));
+      // this.fomdata.push({...this.fomdata[this.Id]});
+      console.log(JSON.stringify(this.fomdata, null, 2));
 
-      this.fbdata.push({...this.feedback});
-      console.log(JSON.stringify(this.fbdata, null, 2));
-      if (this.fbdata) {
+      if (this.fomdata[this.Id]) {
         localStorage.setItem(
-          'this.fbdata',
-          JSON.stringify(this.fbdata, null, 2)
+          'this.fomdata',
+          JSON.stringify(this.fomdata, null, 2)
         );
       }
 
@@ -299,8 +302,7 @@ export class FeedbackCustomer extends LitElement {
       //   JSON.stringify(this.feedback, null, 2)
       // );
 
-      this.feedback = {
-        customerId: 0,
+      this.fomdata[this.Id].feedBack = {
         productRating: '',
         deliveryRating: '',
         size: '',

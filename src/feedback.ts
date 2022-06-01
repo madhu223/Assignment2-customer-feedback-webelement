@@ -5,6 +5,7 @@ export class Feedback {
   contactUs!: string;
   recommond!: string;
   otherFeedabck!: string;
+  customerId!: Number;
 
   // productRating!: '';
   // deliveryRating!: '';

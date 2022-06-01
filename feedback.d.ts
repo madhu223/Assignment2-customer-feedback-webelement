@@ -5,5 +5,6 @@ export declare class Feedback {
     contactUs: string;
     recommond: string;
     otherFeedabck: string;
+    customerId: Number;
 }
 //# sourceMappingURL=feedback.d.ts.map

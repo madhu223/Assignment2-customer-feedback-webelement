@@ -24,17 +24,16 @@ import '@vaadin/vertical-layout';
 import '@vaadin/list-box';
 import '@vaadin/select';
 import '@vaadin/text-area';
-import { Feedback } from './feedback';
+// import {Feedback} from './feedback';
 let FeedbackCustomer = class FeedbackCustomer extends LitElement {
     constructor() {
         super();
-        this.feedback = new Feedback();
+        //   @state()
+        //   feedback: Feedback = new Feedback();
+        // Customerdata
+        this.data = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
         // private fbdata = [{}];
-        this.fbdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
-        //
-        this.fomdata = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
-        this.custs = [];
-        //
+        //   fbdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
         this.regex = /^[0-9]$/;
         this.head = 'Customer Feedback';
         this.title = ' Tell us how do you think..!';
@@ -53,39 +52,42 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
             },
         ];
         // validation
+        //   ${this.data[this.Id].feedBack.productRating}
         this.validatefb = () => {
             let errorMessage = '';
-            if (this.feedback.productRating == null) {
-                // console.log(this.feedback.productRating);
+            if (this.data[this.Id].feedBack.productRating == null) {
+                // console.log(this.data[this.Id].feedBack.productRating);
                 errorMessage = 'productRating is filed is required';
             }
-            //if (this.feedback.productRating !=null !this.regex.test(this.feedback.productRating.toString())) {
-            else if (!(this.feedback.productRating > 0 && this.feedback.productRating < 10)) {
+            //if (this.data[this.Id].feedBack.productRating !=null !this.regex.test(this.data[this.Id].feedBack.productRating.toString())) {
+            else if (!(this.data[this.Id].feedBack.productRating > 0 &&
+                this.data[this.Id].feedBack.productRating < 10)) {
                 errorMessage =
                     errorMessage + '\n' + 'Product rating sholud betweeen 0-9!';
             }
             // Delivery rating
-            if (!this.feedback.deliveryRating) {
-                // console.log(this.feedback.deliveryRating);
+            if (!this.data[this.Id].feedBack.deliveryRating) {
+                // console.log(this.data[this.Id].feedBack.deliveryRating);
                 errorMessage =
                     errorMessage + '\n' + 'DeliveryRating is filed is required';
-            } //if (!this.regex.test(this.feedback.deliveryRating.toString())) {
-            else if (!(this.feedback.deliveryRating > 0 && this.feedback.deliveryRating < 10)) {
+            } //if (!this.regex.test(this.data[this.Id].feedBack.deliveryRating.toString())) {
+            else if (!(this.data[this.Id].feedBack.deliveryRating > 0 &&
+                this.data[this.Id].feedBack.deliveryRating < 10)) {
                 errorMessage =
                     errorMessage + '\n' + 'DeliveryRating sholud betweeen 0-9!';
             }
             //Size
-            if (!this.feedback.size) {
-                // console.log(this.feedback.productRating);
+            if (!this.data[this.Id].feedBack.size) {
+                // console.log(this.data[this.Id].feedBack.productRating);
                 errorMessage = errorMessage + '\n' + 'Size is filed is required';
             }
             // Contact us
-            if (!this.feedback.contactUs) {
-                // console.log(this.feedback.productRating);
+            if (!this.data[this.Id].feedBack.contactUs) {
+                // console.log(this.data[this.Id].feedBack.productRating);
                 errorMessage = errorMessage + '\n' + 'contact us is filed is required';
             }
             // Recommond
-            if (!this.feedback.recommond) {
+            if (!this.data[this.Id].feedBack.recommond) {
                 // console.log(this.feedback.productRating);
                 errorMessage = errorMessage + '\n' + 'Recommond is filed is required';
             }
@@ -94,13 +96,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
             }
             return errorMessage;
         };
-        for (let i = 0; i < this.fomdata.length; i++) {
-            let obj = {
-                label: this.fomdata[i].firstName,
-                value: this.fomdata[i].customerId,
-            };
-            this.custs.push(obj);
-        }
+        this.Id = 0;
     }
     render() {
         return html `
@@ -108,23 +104,13 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
       <div class="container">
         <vaadin-vertical-layout>
           <h2>${this.title}</h2>
-          <label>
-            <h4>Select customer to give us feedback.</h4>
-          </label>
-          <vaadin-select
-            placeholder="select"
-            .items="${this.custs}"
-            name="customerId"
-            value=${this.feedback.customerId}
-            @value-changed=${this.handleChange}
-          ></vaadin-select>
 
           <label>
             <h4>How do you rate the quality of the product ?</h4>
           </label>
           <vaadin-number-field
             name="productRating"
-            value=${this.feedback.productRating}
+            value=${this.data[this.Id].feedBack.productRating}
             @input=${this.handleChange}
             required
             error-message="This field is required"
@@ -136,7 +122,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-number-field
             name="deliveryRating"
-            value=${this.feedback.deliveryRating}
+            value=${this.data[this.Id].feedBack.deliveryRating}
             @input=${this.handleChange}
             required
             error-message="This field is required"
@@ -148,7 +134,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-radio-group
             theme="vertical"
-            value=${this.feedback.size}
+            value=${this.data[this.Id].feedBack.size}
             @value-changed=${(e) => {
             this.handleSize(e, 'size');
         }}
@@ -176,7 +162,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-radio-group
             theme="vertical"
-            value=${this.feedback.contactUs}
+            value=${this.data[this.Id].feedBack.contactUs}
             @value-changed=${(e) => {
             this.handleContact(e, 'contactUs');
         }}
@@ -201,7 +187,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
             placeholder="select"
             .items="${this.items}"
             name="recommond"
-            value=${this.feedback.recommond}
+            value=${this.data[this.Id].feedBack.recommond}
             @value-changed=${this.handleChange}
           ></vaadin-select>
 
@@ -210,7 +196,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
           </label>
           <vaadin-text-area
             name="otherFeedabck"
-            value=${this.feedback.otherFeedabck}
+            value=${this.data[this.Id].feedBack.otherFeedabck}
             @change=${this.handleChange}
           ></vaadin-text-area>
 
@@ -232,47 +218,38 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
     }
     handleChange(e) {
         const { name, value } = e.target;
-        this.feedback = { ...this.feedback, [name]: value };
+        this.data[this.Id] = { ...this.data[this.Id], [name]: value };
     }
     handleSize(e, _key) {
-        this.feedback.size = e.target.value;
-        // console.log((this.feedback.size = e.target.value));
+        this.data[this.Id].feedBack.size = e.target.value;
+        // console.log((this.data[this.Id].feedBack.size = e.target.value));
     }
     handleContact(e, _key) {
-        this.feedback.contactUs = e.target.value;
-        // console.log((this.feedback.contactUs = e.target.value));
+        this.data[this.Id].feedBack.contactUs = e.target.value;
+        // console.log((this.data[this.Id].feedBack.contactUs = e.target.value));
     }
     fbformsubmit() {
         let errorMessage = this.validatefb();
         if (errorMessage == '') {
-            console.log(JSON.stringify(this.feedback, null, 2));
-            let customers = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
-            for (let i = 0; i < customers.length; i++) {
-                if (customers[i].customerId == this.feedback.customerId) {
-                    customers[i].feedBack = this.feedback;
-                }
-            }
-            console.log(customers);
-            localStorage.setItem('this.fomdata', JSON.stringify(customers, null, 2));
-            this.fbdata.push({ ...this.feedback });
-            console.log(JSON.stringify(this.fbdata, null, 2));
-            if (this.fbdata) {
-                localStorage.setItem('this.fbdata', JSON.stringify(this.fbdata, null, 2));
+            console.log(JSON.stringify(this.data[this.Id], null, 2));
+            //   this.fbdata.push({...this.feedback});
+            //   console.log(JSON.stringify(this.fbdata, null, 2));
+            if (this.data[this.Id]) {
+                localStorage.setItem('this.data[this.Id]', JSON.stringify(this.data[this.Id], null, 2));
             }
             alert('Feedback saved successfully...');
             // localStorage.setItem(
             //   'this.feedback',
             //   JSON.stringify(this.feedback, null, 2)
             // );
-            this.feedback = {
-                customerId: 0,
-                productRating: '',
-                deliveryRating: '',
-                size: '',
-                contactUs: '',
-                recommond: '',
-                otherFeedabck: '',
-            };
+            //   this.feedback = {
+            //     productRating: '',
+            //     deliveryRating: '',
+            //     size: '',
+            //     contactUs: '',
+            //     recommond: '',
+            //     otherFeedabck: '',
+            //   };
         }
     }
 };
@@ -292,7 +269,7 @@ FeedbackCustomer.styles = css `
   `;
 __decorate([
     state()
-], FeedbackCustomer.prototype, "feedback", void 0);
+], FeedbackCustomer.prototype, "data", void 0);
 __decorate([
     property()
 ], FeedbackCustomer.prototype, "title", void 0);
@@ -300,7 +277,7 @@ __decorate([
     state()
 ], FeedbackCustomer.prototype, "items", void 0);
 FeedbackCustomer = __decorate([
-    customElement('feeadback-customer')
+    customElement('feeadback-customernew')
 ], FeedbackCustomer);
 export { FeedbackCustomer };
-//# sourceMappingURL=feedback-customer.js.map
+//# sourceMappingURL=feedback-customer1.js.map
