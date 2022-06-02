@@ -49,7 +49,7 @@ export class CustomerDetails extends LitElement {
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   static override styles = css`
-    h2 {
+    h1 {
       text-align: center;
       color: blue;
     }
@@ -75,7 +75,7 @@ export class CustomerDetails extends LitElement {
 
   protected override render() {
     return html`
-        <h2>${this.title}</h2>
+        <h1>${this.title}</h1>
 
         
       <div class="container" >
@@ -228,17 +228,24 @@ export class CustomerDetails extends LitElement {
           <vaadin-button  theme="primary" 
           @click ="${this.formsubmit}"
           >Submit </vaadin-button>
-          <vaadin-button theme="secondary"
+         
+          <vaadin-button theme="secondary" @click=${this.handleCancel}
+              >Cancel</vaadin-button
+            >
+            </vaadin-horizontal-layout>
+        <!-- <vaadin-horizontal-layout theme="spacing" > 
+            <vaadin-button theme="secondary"
           >
-          <a href="/" style="color:Blue;text-decoration:none"
-          >Back</a>
+          <a href="/" style="color:Blue;text-decoration:none; "
+          >Home</a>
           </vaadin-button>
           <vaadin-button theme="primary"
           >
-          <a href="/feedback" style="color:white;text-decoration:none; width:30px"
+          <a href="/feedback" style="margin:10x; color:white;text-decoration:none; width:30px"
           >Feedback </a>
           </vaadin-button>
-        </vaadin-horizontal-layout>
+          </vaadin-horizontal-layout> -->
+       
       </vaadin-vertical-layout>
       </vaadin-form-layout>
       
@@ -473,6 +480,31 @@ export class CustomerDetails extends LitElement {
         },
       };
     }
+  }
+  handleCancel() {
+    this.customer = {
+      customerId: 0,
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      email: '',
+      dob: '',
+      gender: '',
+
+      city: '',
+      state: '',
+      country: '',
+      postalCode: '',
+      feedBack: {
+        customerId: '',
+        productRating: '',
+        deliveryRating: '',
+        size: '',
+        contactUs: '',
+        recommond: '',
+        otherFeedabck: '',
+      },
+    };
   }
   getData() {
     // let data = {...this.customer};

@@ -1,4 +1,4 @@
-import {html, LitElement} from 'lit';
+import {html, LitElement, css} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import '@vaadin/number-field';
 import '@vaadin/button';
@@ -19,36 +19,51 @@ export class ViewCustomer extends LitElement {
   @property()
   override title = 'View Customer Details';
 
+  static override styles = css`
+    h2 {
+      text-align: center;
+    }
+    .container {
+      width: 30vw;
+
+      justify-content: center;
+      margin: auto;
+    }
+  `;
+
   handleview(e: {target: {value: any}}) {
     this.Id = e.target.value - 1;
-    console.log(this.Id);
-    this.data = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
-    this.fdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
-    console.log(this.data[this.Id]);
-    console.log(this.fdata[this.Id]);
+    if (this.Id >= 0 && this.Id < this.data.length) {
+      // console.log(this.Id);
+      this.data = JSON.parse(localStorage.getItem('this.fomdata') || '[]');
+      // this.fdata = JSON.parse(localStorage.getItem('this.fbdata') || '[]');
+      console.log(this.data[this.Id]);
+      // console.log(this.fdata[this.Id]);
+    } else if (this.Id >= this.data.length) {
+      console.log('Data not found');
+    }
+    // else if (this.Id == null) {
+    //   console.log('This is data of first customer');
+    // }
   }
   //   getview() {
   //     this.render();
   //   }
 
   override render() {
-    console.log(this.Id);
+    // console.log(this.Id);
     // console.log(`${this.data[`${this.Id}`].firstName}`);
 
     return html`
-      <h2 style=" text-align: center;">${this.title}</h2>
-      <div
-        class="container"
-        style="  width: 30vw;
-   
-      justify-content: center;
-      margin: auto; "
-      >
+      <h2>${this.title}</h2>
+      <div class="container">
         <vaadin-number-field
           label="CustomerId"
-          placeholder="Enter Id to view"
+          placeholder="Enter customer Id"
           @input=${this.handleview}
+          style=" width:158px "
         ></vaadin-number-field>
+
         <!-- <vaadin-button @click=${this}>click</vaadin-button> -->
         <p><b>Customer Details</b> :</p>
         <p>CustomerId : <b> ${this.data[this.Id].customerId} </b></p>

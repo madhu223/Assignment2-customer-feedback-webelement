@@ -89,6 +89,12 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
                 // console.log(this.feedback.productRating);
                 errorMessage = errorMessage + '\n' + 'Recommond is filed is required';
             }
+            // Otherfeedback
+            if (!this.feedback.otherFeedabck) {
+                // console.log(this.feedback.productRating);
+                errorMessage = errorMessage + '\n' + 'OtherFeedabck is filed is required';
+            }
+            //
             if (errorMessage != '') {
                 alert(errorMessage);
             }
@@ -112,7 +118,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
             <h4>Select customer to give us feedback.</h4>
           </label>
           <vaadin-select
-            placeholder="select"
+            placeholder="select customer"
             .items="${this.custs}"
             name="customerId"
             value=${this.feedback.customerId}
@@ -149,6 +155,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
           <vaadin-radio-group
             theme="vertical"
             value=${this.feedback.size}
+            required
             @value-changed=${(e) => {
             this.handleSize(e, 'size');
         }}
@@ -177,6 +184,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
           <vaadin-radio-group
             theme="vertical"
             value=${this.feedback.contactUs}
+            required
             @value-changed=${(e) => {
             this.handleContact(e, 'contactUs');
         }}
@@ -202,6 +210,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
             .items="${this.items}"
             name="recommond"
             value=${this.feedback.recommond}
+            required
             @value-changed=${this.handleChange}
           ></vaadin-select>
 
@@ -218,7 +227,9 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
             <vaadin-button @click="${this.fbformsubmit}" theme="primary"
               >Submit</vaadin-button
             >
-            <vaadin-button theme="secondary">Cancel</vaadin-button>
+            <vaadin-button theme="secondary" @click=${this.handleCancel}
+              >Cancel</vaadin-button
+            >
           </vaadin-horizontal-layout>
         </vaadin-vertical-layout>
 
@@ -241,6 +252,17 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
     handleContact(e, _key) {
         this.feedback.contactUs = e.target.value;
         // console.log((this.feedback.contactUs = e.target.value));
+    }
+    handleCancel() {
+        this.feedback = {
+            customerId: 0,
+            productRating: '',
+            deliveryRating: '',
+            size: '',
+            contactUs: '',
+            recommond: '',
+            otherFeedabck: '',
+        };
     }
     fbformsubmit() {
         let errorMessage = this.validatefb();
@@ -279,13 +301,15 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
 FeedbackCustomer.styles = css `
     h1 {
       text-align: center;
-    }
-    h2 {
       color: blue;
     }
+    /* h3 {
+      color: blue;
+    } */
     .container {
-      text-align: center;
-      width: 100vw;
+      /* text-align: center; */
+      /* width: 100vw; */
+      /* height: 90vh; */
       display: flex;
       justify-content: center;
     }

@@ -35,6 +35,7 @@ export declare class CustomerDetails extends LitElement {
     handleGender(e: any, _key: any): void;
     validate: () => string;
     formsubmit(): void;
+    handleCancel(): void;
     getData(): void;
 }
 //# sourceMappingURL=customer-details.d.ts.map

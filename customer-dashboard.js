@@ -4,7 +4,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { html, LitElement } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import '@vaadin/grid';
 import '@vaadin/split-layout';
@@ -32,7 +32,6 @@ let CustomerDashboard = class CustomerDashboard extends LitElement {
         this.fulldata = [{}];
         this.title = 'Customer Dashboard';
     }
-    // @state()
     // private data = [
     //   {...JSON.parse(localStorage.getItem('this.customer') || '{}')},
     // ];
@@ -59,7 +58,7 @@ let CustomerDashboard = class CustomerDashboard extends LitElement {
     render() {
         // console.log(this.data[0].customerId, this.data[0].feedBack);
         return html `
-      <h2>${this.title}</h2>
+      <h1>${this.title}</h1>
       <!-- <a href="/customer">Add Customer</a> -->
 
       <vaadin-button theme="primary" style="align-text:center">
@@ -178,6 +177,12 @@ let CustomerDashboard = class CustomerDashboard extends LitElement {
         console.log(e.target.value);
     }
 };
+CustomerDashboard.styles = css `
+    h1 {
+      text-align: center;
+      color: blue;
+    }
+  `;
 __decorate([
     property()
 ], CustomerDashboard.prototype, "title", void 0);

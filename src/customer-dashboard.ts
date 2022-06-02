@@ -1,4 +1,4 @@
-import {html, LitElement} from 'lit';
+import {css, html, LitElement} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import '@vaadin/grid';
 import '@vaadin/split-layout';
@@ -28,7 +28,13 @@ export class CustomerDashboard extends LitElement {
   fulldata = [{}];
   @property()
   override title = 'Customer Dashboard';
-  // @state()
+
+  static override styles = css`
+    h1 {
+      text-align: center;
+      color: blue;
+    }
+  `;
 
   // private data = [
   //   {...JSON.parse(localStorage.getItem('this.customer') || '{}')},
@@ -56,7 +62,7 @@ export class CustomerDashboard extends LitElement {
   protected override render() {
     // console.log(this.data[0].customerId, this.data[0].feedBack);
     return html`
-      <h2>${this.title}</h2>
+      <h1>${this.title}</h1>
       <!-- <a href="/customer">Add Customer</a> -->
 
       <vaadin-button theme="primary" style="align-text:center">

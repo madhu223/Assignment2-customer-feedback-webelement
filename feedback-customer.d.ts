@@ -36,6 +36,7 @@ export declare class FeedbackCustomer extends LitElement {
     }): void;
     handleSize(e: any, _key: any): void;
     handleContact(e: any, _key: any): void;
+    handleCancel(): void;
     fbformsubmit(): void;
 }
 //# sourceMappingURL=feedback-customer.d.ts.map

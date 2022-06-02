@@ -7,6 +7,7 @@ export declare class ViewCustomer extends LitElement {
     Id: number;
     constructor();
     title: string;
+    static styles: import("lit").CSSResult;
     handleview(e: {
         target: {
             value: any;

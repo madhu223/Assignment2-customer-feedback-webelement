@@ -14,6 +14,7 @@ export declare class CustomerDashboard extends LitElement {
     fdata: any;
     fulldata: {}[];
     title: string;
+    static styles: import("lit").CSSResult;
     protected render(): import("lit-html").TemplateResult<1>;
     fetchData(): void;
     getRadio(e: {
