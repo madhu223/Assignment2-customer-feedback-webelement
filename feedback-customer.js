@@ -227,6 +227,7 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
             <vaadin-button @click="${this.fbformsubmit}" theme="primary"
               >Submit</vaadin-button
             >
+
             <vaadin-button theme="secondary" @click=${this.handleCancel}
               >Cancel</vaadin-button
             >
@@ -237,8 +238,6 @@ let FeedbackCustomer = class FeedbackCustomer extends LitElement {
           get data</vaadin-button
         > -->
       </div>
-
-      >
     `;
     }
     handleChange(e) {
