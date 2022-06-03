@@ -181,8 +181,7 @@ export class FeedbackCustomer extends LitElement {
             .items="${this.items}"
             name="recommond"
             value=${this.feedback.recommond}
-            required
-            @value-changed=${this.handleChange}
+            @change=${this.handleChange}
           ></vaadin-select>
 
           <label>
